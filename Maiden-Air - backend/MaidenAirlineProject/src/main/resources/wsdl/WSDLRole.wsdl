@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.example.com/1566573896923" xmlns:ns0="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd6" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://xmlns.example.com/1566573896923">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd6" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd6" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="Role">
+                <xs:complexType>
+                    <xs:attribute name="ID" type="xs:string"/>
+                    <xs:attribute name="Name" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Roles">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Role" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="StatusRole">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:SuccessRole"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SuccessRole">
+                <xs:complexType>
+                    <xs:attribute name="Value" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="ServiceRole.serviceagent">
+        <wsdl:port name="Role" binding="tns:RoleBinding">
+            <soap:address location="http://localhost:9085/SOAP%2520Process/ServiceRole.serviceagent/Role"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="PortTypeRole">
+        <wsdl:operation name="UpdateRole">
+            <wsdl:input message="tns:InUpdateRole"/>
+            <wsdl:output message="tns:OutUpdateRole"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetRoleByID">
+            <wsdl:input message="tns:InGetRoleByID"/>
+            <wsdl:output message="tns:OutGetRoleByID"/>
+        </wsdl:operation>
+        <wsdl:operation name="InsertRole">
+            <wsdl:input message="tns:InInsertRole"/>
+            <wsdl:output message="tns:OutInsertRole"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetAllRoles">
+            <wsdl:input message="tns:InGetAllRoles"/>
+            <wsdl:output message="tns:OutGetAllRoles"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetRoleByName">
+            <wsdl:input message="tns:InGetRoleByName"/>
+            <wsdl:output message="tns:OutGetRoleByName"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteRole">
+            <wsdl:input message="tns:InDeleteRole"/>
+            <wsdl:output message="tns:OutDeleteRole"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="RoleBinding" type="tns:PortTypeRole">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="UpdateRole">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceRole.serviceagent//UpdateRole"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Role"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetRoleByID">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceRole.serviceagent//GetRoleByID"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Role"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Role"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="InsertRole">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceRole.serviceagent//InsertRole"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Role"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetAllRoles">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceRole.serviceagent//GetAllRoles"/>
+            <wsdl:input>
+                <soap:body use="literal" parts=""/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Roles"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetRoleByName">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceRole.serviceagent//GetRoleByName"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Roles"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Roles"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteRole">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceRole.serviceagent//DeleteRole"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Role"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="InUpdateRole">
+        <wsdl:part name="Role" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="OutUpdateRole">
+        <wsdl:part name="Status" element="ns0:StatusRole"/>
+    </wsdl:message>
+    <wsdl:message name="InGetRoleByID">
+        <wsdl:part name="Role" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="OutGetRoleByID">
+        <wsdl:part name="Role" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="InInsertRole">
+        <wsdl:part name="Role" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="OutInsertRole">
+        <wsdl:part name="Status" element="ns0:StatusRole"/>
+    </wsdl:message>
+    <wsdl:message name="InGetAllRoles"/>
+    <wsdl:message name="OutGetAllRoles">
+        <wsdl:part name="Roles" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="InGetRoleByName">
+        <wsdl:part name="Roles" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="OutGetRoleByName">
+        <wsdl:part name="Roles" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="InDeleteRole">
+        <wsdl:part name="Role" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="OutDeleteRole">
+        <wsdl:part name="Status" element="ns0:StatusRole"/>
+    </wsdl:message>
+</wsdl:definitions>

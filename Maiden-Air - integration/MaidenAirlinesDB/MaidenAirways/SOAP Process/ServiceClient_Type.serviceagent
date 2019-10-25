@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://xmlns.example.com/1567086215413">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://xmlns.example.com/1567086215413" location="/SOAP Messages/Client_Type.wsdl"/>
+    <config>
+        <wsdl namespace="http://xmlns.example.com/1567087538397" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Thu Aug 29 15:16:34 BST 2019</serviceChange>
+        <interfaceImpl>
+            <tab>
+                <tabName>PortTypeClient_Type</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SOAP Messages/Client_Type.wsdl" portType="PortTypeClient_Type" ns="http://xmlns.example.com/1567086215413"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="InsertClient_Type" opImpl="/SOAP Process/Client_Type/InsertClient_Type.process"/>
+                                    <row opName="UpdateClient_Type" opImpl="/SOAP Process/Client_Type/UpdateClient_Type.process"/>
+                                    <row opName="DeleteClient_Type" opImpl="/SOAP Process/Client_Type/DeleteClient_Type.process"/>
+                                    <row opName="GetAllClient_Type" opImpl="/SOAP Process/Client_Type/GetAllClient_Types.process"/>
+                                    <row opName="GetClient_TypeByID" opImpl="/SOAP Process/Client_Type/GetClient_TypeByID.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="Client_Type" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/Connections/HTTP-Connection-Client_Type.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/SOAP%20Process/Service.serviceagent/Client_Type</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="InsertClient_Type">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/Service.serviceagent/Client_Type/InsertClient_Type</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="UpdateClient_Type">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/Service.serviceagent/Client_Type/UpdateClient_Type</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DeleteClient_Type">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/Service.serviceagent/Client_Type/DeleteClient_Type</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="GetAllClient_Type">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/Service.serviceagent/Client_Type/GetAllClient_Type</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="GetClient_TypeByID">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/Service.serviceagent/Client_Type/GetClient_TypeByID</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd4" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd" schemaLocation="/Schemas/Airports.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd4" schemaLocation="/Schemas/Clients.xsd"/>
+    <pd:name>Core Process/Client/Read Client By ID_Number.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:Client"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="$Query-By-ID_Number/resultSet/Record">
+                <pfx2:Clients>
+                    <xsl:for-each select="$Query-By-ID_Number/resultSet/Record">
+                        <pfx2:Client>
+                            <xsl:attribute name="ID">
+                                <xsl:value-of select="id"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="First_Name">
+                                <xsl:value-of select="first_name"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Last_Name">
+                                <xsl:value-of select="last_name"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Date_Of_Birth">
+                                <xsl:value-of select="date_of_birth"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Gender">
+                                <xsl:value-of select="gender"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Address">
+                                <xsl:value-of select="address"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Contact_Number">
+                                <xsl:value-of select="contact_number"/>
+                            </xsl:attribute>
+                            <xsl:if test="photo">
+                                <xsl:attribute name="Photo">
+                                    <xsl:value-of select="photo"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:attribute name="Number_Miles">
+                                <xsl:value-of select="number_miles"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Id_Type_Client">
+                                <xsl:value-of select="id_type_client"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Email">
+                                <xsl:value-of select="email"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Id_Number">
+                                <xsl:value-of select="Id_Number"/>
+                            </xsl:attribute>
+                            <xsl:if test="password">
+                                <xsl:attribute name="Password">
+                                    <xsl:value-of select="password"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                        </pfx2:Client>
+                    </xsl:for-each>
+                </pfx2:Clients>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx2:Clients>
+                    <pfx2:Client>
+                        <xsl:attribute name="ID">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="First_Name">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Last_Name">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Date_Of_Birth">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Gender">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Id_Number">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Address">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Contact_Number">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Photo">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Number_Miles">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Id_Type_Client">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Email">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Password">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                    </pfx2:Client>
+                </pfx2:Clients>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx2:Clients"/>
+    <pd:endX>440</pd:endX>
+    <pd:endY>261</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Status>
+            <xsd:element name="Status">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="value" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Status>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1565970135118</pd:targetNamespace>
+    <pd:activity name="Query By ID_Number">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>287</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>SELECT * FROM Client WHERE Id_Number = ?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>Id_Number</parameterName>
+                    <dataType>INTEGER</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>id</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>first_name</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>last_name</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>date_of_birth</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>DATE</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>gender</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>Id_Number</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>address</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>contact_number</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>photo</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>number_miles</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_type_client</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>email</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>password</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <Id_Number>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:Client/@Id_Number)">
+                            <xsl:value-of select="$Start/pfx2:Client/@Id_Number"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Id_Number>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>285</pd:x>
+        <pd:y>260</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Query By ID_Number</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query By ID_Number</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query By ID_Number</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

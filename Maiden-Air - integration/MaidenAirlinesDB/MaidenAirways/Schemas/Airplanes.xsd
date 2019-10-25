@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd2"
+	 targetNamespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd2"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Airplanes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Airplane" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Airplane">
+		<xs:complexType>
+			<xs:attribute name="ID" type="xs:string"/>
+			<xs:attribute name="Model" type="xs:string"/>
+			<xs:attribute name="Cargo_Hold_Capacity" type="xs:string"/>
+			<xs:attribute name="Number_Seats" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StatusAirplane">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SuccessAirplane"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SuccessAirplane">
+		<xs:complexType>
+			<xs:attribute name="Value" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

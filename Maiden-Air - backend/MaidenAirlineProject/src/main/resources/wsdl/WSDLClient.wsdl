@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.example.com/1566487395234" xmlns:ns0="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd4" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://xmlns.example.com/1566487395234">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd4" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd4" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="Client">
+                <xs:complexType>
+                    <xs:attribute name="Address" type="xs:string"/>
+                    <xs:attribute name="Contact_Number" type="xs:string"/>
+                    <xs:attribute name="Date_Of_Birth" type="xs:string"/>
+                    <xs:attribute name="Email" type="xs:string"/>
+                    <xs:attribute name="First_Name" type="xs:string"/>
+                    <xs:attribute name="Gender" type="xs:string"/>
+                    <xs:attribute name="ID" type="xs:string"/>
+                    <xs:attribute name="Id_Number" type="xs:string"/>
+                    <xs:attribute name="Id_Type_Client" type="xs:string"/>
+                    <xs:attribute name="Last_Name" type="xs:string"/>
+                    <xs:attribute name="Number_Miles" type="xs:string"/>
+                    <xs:attribute name="Password" type="xs:string"/>
+                    <xs:attribute name="Photo" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Clients">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Client" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="StatusClient">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:SuccessClient"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SuccessClient">
+                <xs:complexType>
+                    <xs:attribute name="Value" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="ServiceClient.serviceagent">
+        <wsdl:port name="Client" binding="tns:ClientBinding">
+            <soap:address location="http://localhost:9083/SOAP%2520Process/ServiceClient.serviceagent/Client"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="PortTypeClient">
+        <wsdl:operation name="GetAllClients">
+            <wsdl:input message="tns:InGetAllClients"/>
+            <wsdl:output message="tns:OutGetAllClients"/>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateClient">
+            <wsdl:input message="tns:InUpdateClient"/>
+            <wsdl:output message="tns:OutUpdateClient"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetClientByID_Number">
+            <wsdl:input message="tns:InGetClientByID_Number"/>
+            <wsdl:output message="tns:OutGetClientByID_Number"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetClientByEmail">
+            <wsdl:input message="tns:InGetClientByEmail"/>
+            <wsdl:output message="tns:OutGetClientByEmail"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteClient">
+            <wsdl:input message="tns:InDeleteClient"/>
+            <wsdl:output message="tns:OutDeleteClient"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetClientByID">
+            <wsdl:input message="tns:InGetClientByID"/>
+            <wsdl:output message="tns:OutGetClientByID"/>
+        </wsdl:operation>
+        <wsdl:operation name="InsertClient">
+            <wsdl:input message="tns:InInsertClient"/>
+            <wsdl:output message="tns:OutInsertClient"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ClientBinding" type="tns:PortTypeClient">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetAllClients">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceClient.serviceagent/Client/GetAllClients"/>
+            <wsdl:input>
+                <soap:body use="literal" parts=""/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Clients"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateClient">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceClient.serviceagent/Client/UpdateClient"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Client"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetClientByID_Number">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceClient.serviceagent/Client/GetClientByID_Number"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Client"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Client"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetClientByEmail">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceClient.serviceagent//GetClientByEmail"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Client"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Client"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteClient">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceClient.serviceagent/Client/DeleteClient"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Client"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetClientByID">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceClient.serviceagent/Client/GetClientByID"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Client"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Client"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="InsertClient">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceClient.serviceagent/Client/InsertClient"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Client"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="InGetAllClients"/>
+    <wsdl:message name="OutGetAllClients">
+        <wsdl:part name="Clients" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="InUpdateClient">
+        <wsdl:part name="Client" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="OutUpdateClient">
+        <wsdl:part name="Status" element="ns0:StatusClient"/>
+    </wsdl:message>
+    <wsdl:message name="InGetClientByID_Number">
+        <wsdl:part name="Client" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="OutGetClientByID_Number">
+        <wsdl:part name="Client" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="InGetClientByEmail">
+        <wsdl:part name="Client" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="OutGetClientByEmail">
+        <wsdl:part name="Client" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="InDeleteClient">
+        <wsdl:part name="Client" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="OutDeleteClient">
+        <wsdl:part name="Status" element="ns0:StatusClient"/>
+    </wsdl:message>
+    <wsdl:message name="InGetClientByID">
+        <wsdl:part name="Client" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="OutGetClientByID">
+        <wsdl:part name="Client" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="InInsertClient">
+        <wsdl:part name="Client" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="OutInsertClient">
+        <wsdl:part name="Status" element="ns0:StatusClient"/>
+    </wsdl:message>
+</wsdl:definitions>

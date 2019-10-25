@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd" xmlns:tns="http://xmlns.example.com/1566221666966" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd2" xmlns:ns3="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd4" targetNamespace="http://xmlns.example.com/1566221666966">
+    <import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd2" location="../Schemas/Airplanes.xsd"/>
+    <import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd" location="../Schemas/Airports.xsd"/>
+    <message name="inInsertAirport">
+        <part name="Airport" element="ns:Airports"/>
+    </message>
+    <message name="OutInsertAirport">
+        <part name="Status" element="ns:StatusAirport"/>
+    </message>
+    <message name="InUpdateAirport">
+        <part name="Airport" element="ns:Airports"/>
+    </message>
+    <message name="OutUpdateAirport">
+        <part name="Status" element="ns:StatusAirport"/>
+    </message>
+    <message name="InDeleteAirport">
+        <part name="ID" element="ns:Airports"/>
+    </message>
+    <message name="OutDeleteAirport">
+        <part name="Status" element="ns:StatusAirport"/>
+    </message>
+    <message name="InGetAllAirports"/>
+    <message name="OutGetAllAirports">
+        <part element="ns:Airports" name="Airports"/>
+    </message>
+    <message name="InGetAirportBySearchToken">
+        <part element="ns:SearchToken" name="Word"/>
+    </message>
+    <message name="OutGetAirportBySearchToken">
+        <part element="ns:Airports" name="part1"/>
+    </message>
+    <message name="InGetAirportByID">
+        <part name="Airport" element="ns:Airports"/>
+    </message>
+    <message name="OutGetAirportByID">
+        <part name="Airport" element="ns:Airports"/>
+    </message>
+    <portType name="PortTypeAirport">
+        <operation name="InsertAirport">
+            <input message="tns:inInsertAirport"/>
+            <output message="tns:OutInsertAirport"/>
+        </operation>
+        <operation name="UpdateAirport">
+            <input message="tns:InUpdateAirport"/>
+            <output message="tns:OutUpdateAirport"/>
+        </operation>
+        <operation name="DeleteAirport">
+            <input message="tns:InDeleteAirport"/>
+            <output message="tns:OutDeleteAirport"/>
+        </operation>
+        <operation name="GetAllAirports">
+            <input message="tns:InGetAllAirports"/>
+            <output message="tns:OutGetAllAirports"/>
+        </operation>
+        <operation name="GetAirportBySearchToken">
+            <input message="tns:InGetAirportBySearchToken"/>
+            <output message="tns:OutGetAirportBySearchToken"/>
+        </operation>
+        <operation name="GetAirportByID">
+            <input message="tns:InGetAirportByID"/>
+            <output message="tns:OutGetAirportByID"/>
+        </operation>
+    </portType>
+</definitions>

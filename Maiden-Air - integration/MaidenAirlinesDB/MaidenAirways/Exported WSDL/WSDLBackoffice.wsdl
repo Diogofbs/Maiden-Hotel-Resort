@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.example.com/1566568541975" xmlns:ns0="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd5" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://xmlns.example.com/1566568541975">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd5" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd5" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="Backoffice">
+                <xs:complexType>
+                    <xs:attribute name="ID" type="xs:string"/>
+                    <xs:attribute name="Id_Role" type="xs:string"/>
+                    <xs:attribute name="Name" type="xs:string"/>
+                    <xs:attribute name="Password" type="xs:string"/>
+                    <xs:attribute name="Username" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Backoffices">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Backoffice" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Status">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Success"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Success">
+                <xs:complexType>
+                    <xs:attribute name="Value" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="ServiceBackoffice">
+        <wsdl:port name="Backoffice" binding="tns:BackofficeBinding">
+            <soap:address location="http://localhost:9082/SOAP%2520Process/Service.serviceagent/Backoffice"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="PortTypeackoffice">
+        <wsdl:operation name="GetBackofficeByUsername">
+            <wsdl:input message="tns:InGetBackofficeByUsername"/>
+            <wsdl:output message="tns:OutGetBackofficeByUsername"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteBackoffice">
+            <wsdl:input message="tns:InDeleteBackoffice"/>
+            <wsdl:output message="tns:OutDeleteBackoffice"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetAllBackoffice">
+            <wsdl:input message="tns:InGetAllBackoffice"/>
+            <wsdl:output message="tns:OutGetAllBackoffice"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetBackofficeByID">
+            <wsdl:input message="tns:InGetBackofficeByID"/>
+            <wsdl:output message="tns:OutGetBackofficeByID"/>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateBackoffice">
+            <wsdl:input message="tns:InUpdateBackoffice"/>
+            <wsdl:output message="tns:OutUpdateBackoffice"/>
+        </wsdl:operation>
+        <wsdl:operation name="InsertBackoffice">
+            <wsdl:input message="tns:InInsertBackoffice"/>
+            <wsdl:output message="tns:OutInsertBackoffice"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BackofficeBinding" type="tns:PortTypeackoffice">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetBackofficeByUsername">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceBackoffice.serviceagent//GetBackofficeByUsername"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Backoffice"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Backoffice"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteBackoffice">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceBackoffice.serviceagent//DeleteBackoffice"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Backoffice"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetAllBackoffice">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceBackoffice.serviceagent//GetAllBackoffice"/>
+            <wsdl:input>
+                <soap:body use="literal" parts=""/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Backoffice"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetBackofficeByID">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceBackoffice.serviceagent//GetBackofficeByID"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Backoffice"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Backoffice"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateBackoffice">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceBackoffice.serviceagent//UpdateBackoffice"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Backoffice"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="InsertBackoffice">
+            <soap:operation style="document" soapAction="/SOAP%2520Process/ServiceBackoffice.serviceagent//InsertBackoffice"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Backoffice"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="InGetBackofficeByUsername">
+        <wsdl:part name="Backoffice" element="ns0:Backoffices"/>
+    </wsdl:message>
+    <wsdl:message name="OutGetBackofficeByUsername">
+        <wsdl:part name="Backoffice" element="ns0:Backoffice"/>
+    </wsdl:message>
+    <wsdl:message name="InDeleteBackoffice">
+        <wsdl:part name="Backoffice" element="ns0:Backoffices"/>
+    </wsdl:message>
+    <wsdl:message name="OutDeleteBackoffice">
+        <wsdl:part name="Status" element="ns0:Status"/>
+    </wsdl:message>
+    <wsdl:message name="InGetAllBackoffice"/>
+    <wsdl:message name="OutGetAllBackoffice">
+        <wsdl:part name="Backoffice" element="ns0:Backoffices"/>
+    </wsdl:message>
+    <wsdl:message name="InGetBackofficeByID">
+        <wsdl:part name="Backoffice" element="ns0:Backoffices"/>
+    </wsdl:message>
+    <wsdl:message name="OutGetBackofficeByID">
+        <wsdl:part name="Backoffice" element="ns0:Backoffice"/>
+    </wsdl:message>
+    <wsdl:message name="InUpdateBackoffice">
+        <wsdl:part name="Backoffice" element="ns0:Backoffices"/>
+    </wsdl:message>
+    <wsdl:message name="OutUpdateBackoffice">
+        <wsdl:part name="Status" element="ns0:Status"/>
+    </wsdl:message>
+    <wsdl:message name="InInsertBackoffice">
+        <wsdl:part name="Backoffice" element="ns0:Backoffices"/>
+    </wsdl:message>
+    <wsdl:message name="OutInsertBackoffice">
+        <wsdl:part name="Status" element="ns0:Status"/>
+    </wsdl:message>
+</wsdl:definitions>

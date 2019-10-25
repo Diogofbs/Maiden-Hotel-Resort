@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://xmlns.example.com/1566396604474">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://xmlns.example.com/1566396604474" location="/SOAP Messages/Airplane.wsdl"/>
+    <config>
+        <wsdl namespace="http://xmlns.example.com/1566397446396" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Tue Aug 27 15:32:32 BST 2019</serviceChange>
+        <name>ServiceAirplane</name>
+        <resourceType>service.definition</resourceType>
+        <interfaceImpl>
+            <tab>
+                <tabName>PortTypeAirplane</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SOAP Messages/Airplane.wsdl" portType="PortTypeAirplane" ns="http://xmlns.example.com/1566396604474"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="InsertAirplane" opImpl="/SOAP Process/Airplane/InsertAirplane.process"/>
+                                    <row opName="UpdateAirplane" opImpl="/SOAP Process/Airplane/UpdateAirplane.process"/>
+                                    <row opName="DeleteAirplane" opImpl="/SOAP Process/Airplane/DeleteAirplane.process"/>
+                                    <row opName="GetAllAirplanes" opImpl="/SOAP Process/Airplane/GetAllAirplanes.process"/>
+                                    <row opName="GetAirplaneByID" opImpl="/SOAP Process/Airplane/GetAirplaneByID.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="Airplane" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/Connections/HTTP-Connection-Airplane.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/SOAP%20Process/ServiceAirplane.serviceagent/Airplane</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="InsertAirplane">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/ServiceAirplane.serviceagent/Airplane/InsertAirplane</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="UpdateAirplane">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/ServiceAirplane.serviceagent/Airplane/UpdateAirplane</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DeleteAirplane">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/ServiceAirplane.serviceagent/Airplane/DeleteAirplane</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="GetAllAirplanes">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/ServiceAirplane.serviceagent/Airplane/GetAllAirplanes</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="GetAirplaneByID">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/ServiceAirplane.serviceagent/Airplane/GetAirplaneByID</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://xmlns.example.com/1566568363834" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd5">
+    <wsdl:import namespace="http://xmlns.example.com/1566568363834" location="/SOAP Messages/Backoffice.wsdl"/>
+    <pd:name>SOAP Process/Backoffice/GetBackofficeByUsername.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx:InGetBackofficeByUsername"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <pfx:OutGetBackofficeByUsername>
+            <Backoffice>
+                <ns:Backoffices>
+                    <xsl:copy-of select="$Call-Read-Backoffice-By-Username/ns:Backoffices/ns:Backoffice"/>
+                </ns:Backoffices>
+            </Backoffice>
+        </pfx:OutGetBackofficeByUsername>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx:OutGetBackofficeByUsername"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1566571591549</pd:targetNamespace>
+    <pd:activity name="Call Read Backoffice By Username">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>304</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <processName>/Core Process/Backoffice/Read BackOffice By Username.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx:InGetBackofficeByUsername/Backoffice/ns:Backoffices/ns:Backoffice"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Call Read Backoffice By Username</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call Read Backoffice By Username</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

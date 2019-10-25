@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://xmlns.example.com/1567006972092" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd8">
+    <wsdl:import namespace="http://xmlns.example.com/1567006972092" location="/SOAP Messages/Booking.wsdl"/>
+    <pd:name>SOAP Process/Booking/GenerateBoardingPass.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx:InGenerateBoardingPass"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <pfx:OutGenerateBoardingPass>
+            <BoardingPass>
+                <ns:BoardingPasses>
+                    <xsl:copy-of select="$Call-Generate-Ticket-By-Booking_Client_Flight-ID/ns:BoardingPasses/ns:BoardingPass"/>
+                </ns:BoardingPasses>
+            </BoardingPass>
+        </pfx:OutGenerateBoardingPass>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx:OutGenerateBoardingPass"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1568382155160</pd:targetNamespace>
+    <pd:activity name="Call Generate Ticket By Booking_Client_Flight ID">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>299</pd:x>
+        <pd:y>86</pd:y>
+        <config>
+            <processName>/Core Process/Booking/Generate Ticket By Booking ID.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx:InGenerateBoardingPass/Booking_Client_Flight/ns:Booking_Client_Flights/ns:Booking_Client_Flight"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Call Generate Ticket By Booking_Client_Flight ID</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call Generate Ticket By Booking_Client_Flight ID</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd3" xmlns:tns="http://xmlns.example.com/1566403154489" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd5" targetNamespace="http://xmlns.example.com/1566403154489">
+    <import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd3" location="../Schemas/Flights.xsd"/>
+    <import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd5" location="../Schemas/Backoffice.xsd"/>
+    <message name="InInsertFlight">
+        <part name="Flight" element="ns:Flights"/>
+    </message>
+    <message name="OutInsertFlight">
+        <part name="part1" element="ns:StatusFlight"/>
+    </message>
+    <message name="InUpdateFlight">
+        <part name="Flight" element="ns:Flights"/>
+    </message>
+    <message name="OutUpdateFlight">
+        <part name="Status" element="ns:StatusFlight"/>
+    </message>
+    <message name="InDeleteFlight">
+        <part name="Flight" element="ns:Flights"/>
+    </message>
+    <message name="OutDeleteFlight">
+        <part name="part1" element="ns:StatusFlight"/>
+    </message>
+    <message name="InGetAllFlights"/>
+    <message name="OutGetAllFlights">
+        <part name="Flights" element="ns:Flights"/>
+    </message>
+    <message name="InGetFlightByID">
+        <part name="Flight" element="ns:Flights"/>
+    </message>
+    <message name="OutGetFlightByID">
+        <part name="Flights" element="ns:Flights"/>
+    </message>
+    <message name="InGetFlightByDateAndLocal">
+        <part name="Flight" element="ns:Flights"/>
+    </message>
+    <message name="OutGetFlightByDateAndLocal">
+        <part name="Flights" element="ns:Flights"/>
+    </message>
+    <portType name="PortTypeFlight">
+        <operation name="InsertFlight">
+            <input message="tns:InInsertFlight"/>
+            <output message="tns:OutInsertFlight"/>
+        </operation>
+        <operation name="UpdateFlight">
+            <input message="tns:InUpdateFlight"/>
+            <output message="tns:OutUpdateFlight"/>
+        </operation>
+        <operation name="DeleteFlight">
+            <input message="tns:InDeleteFlight"/>
+            <output message="tns:OutDeleteFlight"/>
+        </operation>
+        <operation name="GetAllFlights">
+            <input message="tns:InGetAllFlights"/>
+            <output message="tns:OutGetAllFlights"/>
+        </operation>
+        <operation name="GetFlightByID">
+            <input message="tns:InGetFlightByID"/>
+            <output message="tns:OutGetFlightByID"/>
+        </operation>
+        <operation name="GetFlightByDateAndLocal">
+            <input message="tns:InGetFlightByDateAndLocal"/>
+            <output message="tns:OutGetFlightByDateAndLocal"/>
+        </operation>
+    </portType>
+</definitions>

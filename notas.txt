@@ -1,0 +1,6 @@
+** AIRLINE COMPANY **
+
+Project: Web application
+Software: Angular (Frontend), Spring (Backend), Java (Backend), TIBCO (Integration), MySQL (DB)
+
+Team: Diogo Brás Santos, David Costa, Daniel Costa

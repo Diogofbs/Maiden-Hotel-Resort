@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd3" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd" schemaLocation="/Schemas/Airports.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd3" schemaLocation="/Schemas/Flights.xsd"/>
+    <pd:name>Core Process/Flight/Update Flight.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:Flight"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <Status>
+            <xsl:choose>
+                <xsl:when test="$Update/jdbcUpdateActivityOutput/noOfUpdates or $Update/jdbcUpdateActivityOutput/noOfUpdates > 0">
+                    <Value>
+                        <xsl:value-of select="0"/>
+                    </Value>
+                </xsl:when>
+                <xsl:otherwise>
+                    <Value>
+                        <xsl:value-of select="-1"/>
+                    </Value>
+                </xsl:otherwise>
+            </xsl:choose>
+        </Status>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Status">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Value" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>534</pd:endX>
+    <pd:endY>255</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <FlightData ref="pfx2:Flight"/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1565970135118</pd:targetNamespace>
+    <pd:activity name="Query ID">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>287</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>SELECT * FROM Flight WHERE ID = ?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>ID</parameterName>
+                    <dataType>INTEGER</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>id</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>departure_date</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>DATETIME</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>arrival_date</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>DATETIME</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>departure_airport</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>arrival_airport</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_airplane</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>flight_number</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>gate</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>status</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>price</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>7</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>FLOAT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>miles</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <ID>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:Flight/@ID)">
+                            <xsl:value-of select="$Start/pfx2:Flight/@ID"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </ID>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Update">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>405</pd:x>
+        <pd:y>164</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>UPDATE  Flight SET Departure_Date = ?, Arrival_Date =?, Departure_Airport = ?, Arrival_Airport = ?, Id_Airplane = ?, Flight_Number = ?, Gate = ?, Status = ?, Price = ?, Miles = ? WHERE ID = ?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>Departure_Date</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Arrival_Date</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Departure_Airport</parameterName>
+                    <dataType>INTEGER</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Arrival_Airport</parameterName>
+                    <dataType>INTEGER</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Id_Airplane</parameterName>
+                    <dataType>INTEGER</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Flight_Number</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Gate</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Status</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Price</parameterName>
+                    <dataType>FLOAT</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Miles</parameterName>
+                    <dataType>INTEGER</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>ID</parameterName>
+                    <dataType>INTEGER</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:Flight/@Departure_Date !=&quot;&quot;">
+                        <Departure_Date>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:Flight/@Departure_Date)">
+                                    <xsl:value-of select="$Start/pfx2:Flight/@Departure_Date"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Departure_Date>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Departure_Date>
+                            <xsl:choose>
+                                <xsl:when test="exists($FlightData/pfx2:Flight/@Departure_Date)">
+                                    <xsl:value-of select="$FlightData/pfx2:Flight/@Departure_Date"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Departure_Date>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:Flight/@Arrival_Date !=&quot;&quot;">
+                        <Arrival_Date>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:Flight/@Arrival_Date)">
+                                    <xsl:value-of select="$Start/pfx2:Flight/@Arrival_Date"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Arrival_Date>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Arrival_Date>
+                            <xsl:choose>
+                                <xsl:when test="exists($FlightData/pfx2:Flight/@Arrival_Date)">
+                                    <xsl:value-of select="$FlightData/pfx2:Flight/@Arrival_Date"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Arrival_Date>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:Flight/@Departure_Airport > 0">
+                        <Departure_Airport>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:Flight/@Departure_Airport)">
+                                    <xsl:value-of select="$Start/pfx2:Flight/@Departure_Airport"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Departure_Airport>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Departure_Airport>
+                            <xsl:choose>
+                                <xsl:when test="exists($FlightData/pfx2:Flight/@Departure_Airport)">
+                                    <xsl:value-of select="$FlightData/pfx2:Flight/@Departure_Airport"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Departure_Airport>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:Flight/@Arrival_Airport > 0">
+                        <Arrival_Airport>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:Flight/@Arrival_Airport)">
+                                    <xsl:value-of select="$Start/pfx2:Flight/@Arrival_Airport"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Arrival_Airport>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Arrival_Airport>
+                            <xsl:choose>
+                                <xsl:when test="exists($FlightData/pfx2:Flight/@Arrival_Airport)">
+                                    <xsl:value-of select="$FlightData/pfx2:Flight/@Arrival_Airport"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Arrival_Airport>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:Flight/@ID_Airplane > 0">
+                        <Id_Airplane>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:Flight/@ID_Airplane)">
+                                    <xsl:value-of select="$Start/pfx2:Flight/@ID_Airplane"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Id_Airplane>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Id_Airplane>
+                            <xsl:choose>
+                                <xsl:when test="exists($FlightData/pfx2:Flight/@ID_Airplane)">
+                                    <xsl:value-of select="$FlightData/pfx2:Flight/@ID_Airplane"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Id_Airplane>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:Flight/@Flight_Number !=&quot;&quot;">
+                        <Flight_Number>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:Flight/@Flight_Number)">
+                                    <xsl:value-of select="$Start/pfx2:Flight/@Flight_Number"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Flight_Number>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Flight_Number>
+                            <xsl:choose>
+                                <xsl:when test="exists($FlightData/pfx2:Flight/@Flight_Number)">
+                                    <xsl:value-of select="$FlightData/pfx2:Flight/@Flight_Number"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Flight_Number>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:Flight/@Gate > 0">
+                        <Gate>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:Flight/@Gate)">
+                                    <xsl:value-of select="$Start/pfx2:Flight/@Gate"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Gate>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Gate>
+                            <xsl:choose>
+                                <xsl:when test="exists($FlightData/pfx2:Flight/@Gate)">
+                                    <xsl:value-of select="$FlightData/pfx2:Flight/@Gate"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Gate>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:Flight/@Status !=&quot;&quot;">
+                        <Status>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:Flight/@Status)">
+                                    <xsl:value-of select="$Start/pfx2:Flight/@Status"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Status>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Status>
+                            <xsl:choose>
+                                <xsl:when test="exists($FlightData/pfx2:Flight/@Status)">
+                                    <xsl:value-of select="$FlightData/pfx2:Flight/@Status"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Status>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:Flight/@Price > 0">
+                        <Price>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:Flight/@Price)">
+                                    <xsl:value-of select="$Start/pfx2:Flight/@Price"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Price>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Price>
+                            <xsl:choose>
+                                <xsl:when test="exists($FlightData/pfx2:Flight/@Price)">
+                                    <xsl:value-of select="$FlightData/pfx2:Flight/@Price"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Price>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:Flight/@Miles > 0">
+                        <Miles>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:Flight/@Miles)">
+                                    <xsl:value-of select="$Start/pfx2:Flight/@Miles"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Miles>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <Miles>
+                            <xsl:choose>
+                                <xsl:when test="exists($FlightData/pfx2:Flight/@Miles)">
+                                    <xsl:value-of select="$FlightData/pfx2:Flight/@Miles"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </Miles>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <ID>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:Flight/@ID)">
+                            <xsl:value-of select="$Start/pfx2:Flight/@ID"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </ID>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>283</pd:x>
+        <pd:y>252</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Assign Data From Airport">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>534</pd:x>
+        <pd:y>74</pd:y>
+        <config>
+            <variableName>FlightData</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:for-each select="$Query-ID/resultSet/Record[1]">
+                <pfx2:Flight>
+                    <xsl:attribute name="ID">
+                        <xsl:value-of select="id"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="Departure_Date">
+                        <xsl:value-of select="tib:format-dateTime('yyyy-MM-dd HH:mm:ss', departure_date)"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="Arrival_Date">
+                        <xsl:value-of select="tib:format-dateTime('yyyy-MM-dd HH:mm:ss', arrival_date)"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="Departure_Airport">
+                        <xsl:value-of select="departure_airport"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="Arrival_Airport">
+                        <xsl:value-of select="arrival_airport"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="ID_Airplane">
+                        <xsl:value-of select="id_airplane"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="Flight_Number">
+                        <xsl:value-of select="flight_number"/>
+                    </xsl:attribute>
+                    <xsl:if test="gate">
+                        <xsl:attribute name="Gate">
+                            <xsl:value-of select="gate"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="status">
+                        <xsl:attribute name="Status">
+                            <xsl:value-of select="status"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:attribute name="Price">
+                        <xsl:value-of select="price"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="Miles">
+                        <xsl:value-of select="miles"/>
+                    </xsl:attribute>
+                </pfx2:Flight>
+            </xsl:for-each>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Query ID</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query ID</pd:from>
+        <pd:to>Assign Data From Airport</pd:to>
+        <pd:xpathDescription>Exists</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Query-ID/resultSet/Record/id &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query ID</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Data From Airport</pd:from>
+        <pd:to>Update</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

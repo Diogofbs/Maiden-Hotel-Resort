@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://xmlns.example.com/1566910204313">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://xmlns.example.com/1566910204313" location="/SOAP Messages/Booking_Type.wsdl"/>
+    <config>
+        <wsdl namespace="http://xmlns.example.com/1566910832849" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Tue Aug 27 14:29:01 BST 2019</serviceChange>
+        <interfaceImpl>
+            <tab>
+                <tabName>PortTypeBooking_Type</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/SOAP Messages/Booking_Type.wsdl" portType="PortTypeBooking_Type" ns="http://xmlns.example.com/1566910204313"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="InsertBookingType" opImpl="/SOAP Process/Booking_Type/InsertBooking_Type.process"/>
+                                    <row opName="UpdateBookingType" opImpl="/SOAP Process/Booking_Type/UpdateBooking_Type.process"/>
+                                    <row opName="DeleteBookingType" opImpl="/SOAP Process/Booking_Type/DeleteBooking_Type.process"/>
+                                    <row opName="GetAllBookingTypes" opImpl="/SOAP Process/Booking_Type/GetAllBooking_Types.process"/>
+                                    <row opName="GetBookingTypeByID" opImpl="/SOAP Process/Booking_Type/GetBooking_TypeByID.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="Booking_Type" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/Connections/HTTP-Connection-Booking_Type.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/SOAP%20Process/ServiceBooking_Type.serviceagent/Booking_Type</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="InsertBookingType">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/ServiceBooking_Type.serviceagent/Booking_Type/InsertBookingType</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="UpdateBookingType">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/ServiceBooking_Type.serviceagent/Booking_Type/UpdateBookingType</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DeleteBookingType">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/ServiceBooking_Type.serviceagent/Booking_Type/DeleteBookingType</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="GetAllBookingTypes">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/ServiceBooking_Type.serviceagent/Booking_Type/GetAllBookingTypes</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="GetBookingTypeByID">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/SOAP%2520Process/ServiceBooking_Type.serviceagent/Booking_Type/GetBookingTypeByID</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

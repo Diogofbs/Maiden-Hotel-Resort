@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd8"
+	 targetNamespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd8"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Bookings">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Booking" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Booking">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Passengers" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="SelectedFlights" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="ID" type="xs:string"/>
+			<xs:attribute name="Date" type="xs:string"/>
+			<xs:attribute name="Booking_Type" type="xs:string"/>
+			<xs:attribute name="ID_Client" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StatusBooking">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SuccessBooking"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SuccessBooking">
+		<xs:complexType>
+			<xs:attribute name="Value" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Booking_Client_Flight">
+		<xs:complexType>
+			<xs:attribute name="ID" type="xs:string"/>
+			<xs:attribute name="Id_Booking" type="xs:string"/>
+			<xs:attribute name="Id_Client" type="xs:string"/>
+			<xs:attribute name="Id_Flight" type="xs:string"/>
+			<xs:attribute name="Seat" type="xs:string"/>
+			<xs:attribute name="Check_In" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Passengers">
+		<xs:complexType>
+			<xs:attribute name="ID" type="xs:string"/>
+			<xs:attribute name="First_Name" type="xs:string"/>
+			<xs:attribute name="Last_Name" type="xs:string"/>
+			<xs:attribute name="Date_Of_Birth" type="xs:string"/>
+			<xs:attribute name="Gender" type="xs:string"/>
+			<xs:attribute name="Id_Number" type="xs:string"/>
+			<xs:attribute name="Address" type="xs:string"/>
+			<xs:attribute name="Contact_Number" type="xs:string"/>
+			<xs:attribute name="Photo" type="xs:string"/>
+			<xs:attribute name="Number_Miles" type="xs:string"/>
+			<xs:attribute name="Id_Type_Client" type="xs:string"/>
+			<xs:attribute name="Email" type="xs:string"/>
+			<xs:attribute name="Password" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SelectedFlights">
+		<xs:complexType>
+			<xs:attribute name="ID" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Booking_Client_Flights">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Booking_Client_Flight" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BoardingPasses">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BoardingPass" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BoardingPass">
+		<xs:complexType>
+			<xs:attribute name="First_Name" type="xs:string"/>
+			<xs:attribute name="Last_Name" type="xs:string"/>
+			<xs:attribute name="Flight_Number" type="xs:string"/>
+			<xs:attribute name="Departure_Date" type="xs:string"/>
+			<xs:attribute name="Departure_Airport_City" type="xs:string"/>
+			<xs:attribute name="Arrival_Airport_City" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

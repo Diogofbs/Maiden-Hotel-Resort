@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd3"
+	 targetNamespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd3"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Flights">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Flight" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Flight">
+		<xs:complexType>
+			<xs:attribute name="ID" type="xs:string"/>
+			<xs:attribute name="Departure_Date" type="xs:string"/>
+			<xs:attribute name="Arrival_Date" type="xs:string"/>
+			<xs:attribute name="Departure_Airport" type="xs:string"/>
+			<xs:attribute name="Arrival_Airport" type="xs:string"/>
+			<xs:attribute name="ID_Airplane" type="xs:string"/>
+			<xs:attribute name="Flight_Number" type="xs:string"/>
+			<xs:attribute name="Gate" type="xs:string"/>
+			<xs:attribute name="Status" type="xs:string"/>
+			<xs:attribute name="Price" type="xs:string"/>
+			<xs:attribute name="Miles" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StatusFlight">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SuccessFlight"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SuccessFlight">
+		<xs:complexType>
+			<xs:attribute name="Value" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

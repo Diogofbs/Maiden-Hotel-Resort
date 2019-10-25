@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd3" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd" schemaLocation="/Schemas/Airports.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd3" schemaLocation="/Schemas/Flights.xsd"/>
+    <pd:name>Core Process/Flight/Read Flight By Dates And Location.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:Flight"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="$Query-By-Name-City-or-Country/resultSet/Record">
+                <pfx2:Flights>
+                    <xsl:for-each select="$Query-By-Name-City-or-Country/resultSet/Record">
+                        <pfx2:Flight>
+                            <xsl:attribute name="ID">
+                                <xsl:value-of select="id"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Departure_Date">
+                                <xsl:value-of select="departure_date"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Arrival_Date">
+                                <xsl:value-of select="arrival_date"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Departure_Airport">
+                                <xsl:value-of select="departure_airport"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Arrival_Airport">
+                                <xsl:value-of select="arrival_airport"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="ID_Airplane">
+                                <xsl:value-of select="id_airplane"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Flight_Number">
+                                <xsl:value-of select="flight_number"/>
+                            </xsl:attribute>
+                            <xsl:if test="gate">
+                                <xsl:attribute name="Gate">
+                                    <xsl:value-of select="gate"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:if test="status">
+                                <xsl:attribute name="Status">
+                                    <xsl:value-of select="status"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:attribute name="Price">
+                                <xsl:value-of select="price"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="Miles">
+                                <xsl:value-of select="miles"/>
+                            </xsl:attribute>
+                        </pfx2:Flight>
+                    </xsl:for-each>
+                </pfx2:Flights>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx2:Flights>
+                    <pfx2:Flight>
+                        <xsl:attribute name="ID">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Departure_Date">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Arrival_Date">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Departure_Airport">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Arrival_Airport">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="ID_Airplane">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Flight_Number">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Gate">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Status">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="Price">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                    </pfx2:Flight>
+                </pfx2:Flights>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx2:Flights"/>
+    <pd:endX>440</pd:endX>
+    <pd:endY>261</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Status>
+            <xsd:element name="Status">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="value" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Status>
+        <FlightData/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1565970135118</pd:targetNamespace>
+    <pd:activity name="Query By Name, City or Country">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>287</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>SELECT * FROM Flight WHERE Departure_Date &gt;=? AND Departure_Date &lt;= DATE_ADD(?, interval 24 hour)  AND Departure_Airport = ? AND Arrival_Airport = ?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>Departure_Date</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Departure_Date_Copy</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Departure_Airport</parameterName>
+                    <dataType>INTEGER</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>Arrival_Airport</parameterName>
+                    <dataType>INTEGER</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>id</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>departure_date</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>DATETIME</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>arrival_date</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>93</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>DATETIME</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>departure_airport</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>arrival_airport</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_airplane</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>flight_number</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>gate</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>status</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>price</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>7</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>FLOAT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>miles</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <Departure_Date>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:Flight/@Departure_Date)">
+                            <xsl:value-of select="$Start/pfx2:Flight/@Departure_Date"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Departure_Date>
+                <Departure_Date_Copy>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:Flight/@Departure_Date)">
+                            <xsl:value-of select="$Start/pfx2:Flight/@Departure_Date"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Departure_Date_Copy>
+                <Departure_Airport>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:Flight/@Departure_Airport)">
+                            <xsl:value-of select="$Start/pfx2:Flight/@Departure_Airport"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Departure_Airport>
+                <Arrival_Airport>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:Flight/@Arrival_Airport)">
+                            <xsl:value-of select="$Start/pfx2:Flight/@Arrival_Airport"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </Arrival_Airport>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>285</pd:x>
+        <pd:y>260</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Query By Name, City or Country</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query By Name, City or Country</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query By Name, City or Country</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

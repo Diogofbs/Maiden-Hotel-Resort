@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd7" xmlns:tns="http://xmlns.example.com/1566910204313" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.example.com/1566910204313">
+    <import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd7" location="../Schemas/Booking_Type.xsd"/>
+    <message name="InInsertBooking_Type">
+        <part name="Booking_Types" element="ns:Booking_Types"/>
+    </message>
+    <message name="OutInsertBooking_Type">
+        <part name="Status" element="ns:StatusBooking_Type"/>
+    </message>
+    <message name="InUpdateBooking_Type">
+        <part name="Booking_Types" element="ns:Booking_Types"/>
+    </message>
+    <message name="OutUpdateBooking_Types">
+        <part name="Status" element="ns:StatusBooking_Type"/>
+    </message>
+    <message name="InDeleteBooking_Type">
+        <part name="Booking_Types" element="ns:Booking_Types"/>
+    </message>
+    <message name="OutDeleteBooking_Type">
+        <part name="Status" element="ns:StatusBooking_Type"/>
+    </message>
+    <message name="InGetAllBooking_Type"/>
+    <message name="OutGetAllBooking_Type">
+        <part name="Booking_Types" element="ns:Booking_Types"/>
+    </message>
+    <message name="InGetBooking_TypeByID">
+        <part name="Booking_Types" element="ns:Booking_Types"/>
+    </message>
+    <message name="OutGetBooking_TypeByID">
+        <part name="Booking_Types" element="ns:Booking_Types"/>
+    </message>
+    <portType name="PortTypeBooking_Type">
+        <operation name="InsertBookingType">
+            <input message="tns:InInsertBooking_Type"/>
+            <output message="tns:OutInsertBooking_Type"/>
+        </operation>
+        <operation name="UpdateBookingType">
+            <input message="tns:InUpdateBooking_Type"/>
+            <output message="tns:OutUpdateBooking_Types"/>
+        </operation>
+        <operation name="DeleteBookingType">
+            <input message="tns:InDeleteBooking_Type"/>
+            <output message="tns:OutDeleteBooking_Type"/>
+        </operation>
+        <operation name="GetAllBookingTypes">
+            <input message="tns:InGetAllBooking_Type"/>
+            <output message="tns:OutGetAllBooking_Type"/>
+        </operation>
+        <operation name="GetBookingTypeByID">
+            <input message="tns:InGetBooking_TypeByID"/>
+            <output message="tns:OutGetBooking_TypeByID"/>
+        </operation>
+    </portType>
+</definitions>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd2" xmlns:tns="http://xmlns.example.com/1566396604474" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd" targetNamespace="http://xmlns.example.com/1566396604474">
+    <import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd" location="../Exported WSDL/WSDLAirport.wsdl"/>
+    <import namespace="http://www.tibco.com/schemas/MaidenAirways/Schemas/Schema.xsd2" location="../Schemas/Airplanes.xsd"/>
+    <message name="InInsertAirplane">
+        <part name="Airplane" element="ns:Airplanes"/>
+    </message>
+    <message name="OutInsertAirplane">
+        <part name="Status" element="ns:StatusAirplane"/>
+    </message>
+    <message name="InUpdateAirplane">
+        <part name="Airplane" element="ns:Airplanes"/>
+    </message>
+    <message name="OutUpdateAirplane">
+        <part name="Status" element="ns:StatusAirplane"/>
+    </message>
+    <message name="InDeleteAirplane">
+        <part name="Airplane" element="ns:Airplanes"/>
+    </message>
+    <message name="OutDeleteAirplane">
+        <part name="Status" element="ns:StatusAirplane"/>
+    </message>
+    <message name="InGetAllAirplanes"/>
+    <message name="OutGetAllAirplanes">
+        <part name="Airplanes" element="ns:Airplanes"/>
+    </message>
+    <message name="InGetAirplaneByID">
+        <part name="Airplane" element="ns:Airplanes"/>
+    </message>
+    <message name="OutGetAirplaneByID">
+        <part name="Airplane" element="ns:Airplanes"/>
+    </message>
+    <portType name="PortTypeAirplane">
+        <operation name="InsertAirplane">
+            <input message="tns:InInsertAirplane"/>
+            <output message="tns:OutInsertAirplane"/>
+        </operation>
+        <operation name="UpdateAirplane">
+            <input message="tns:InUpdateAirplane"/>
+            <output message="tns:OutUpdateAirplane"/>
+        </operation>
+        <operation name="DeleteAirplane">
+            <input message="tns:InDeleteAirplane"/>
+            <output message="tns:OutDeleteAirplane"/>
+        </operation>
+        <operation name="GetAllAirplanes">
+            <input message="tns:InGetAllAirplanes"/>
+            <output message="tns:OutGetAllAirplanes"/>
+        </operation>
+        <operation name="GetAirplaneByID">
+            <input message="tns:InGetAirplaneByID"/>
+            <output message="tns:OutGetAirplaneByID"/>
+        </operation>
+    </portType>
+</definitions>
