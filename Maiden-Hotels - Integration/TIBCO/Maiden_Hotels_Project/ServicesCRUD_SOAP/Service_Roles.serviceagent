@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://xmlns.example.com/1570439393155">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://xmlns.example.com/1570439393155" location="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Messages/Roles.wsdl"/>
+    <config>
+        <wsdl namespace="http://xmlns.example.com/1570439064291" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Mon Oct 07 10:54:12 BST 2019</serviceChange>
+        <interfaceImpl>
+            <tab>
+                <tabName>PortType_Roles</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Messages/Roles.wsdl" portType="PortType_Roles" ns="http://xmlns.example.com/1570439393155"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="Get_All" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Roles/Get_All_Role.process"/>
+                                    <row opName="Get_ByParam" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Roles/Get_ByParam_Role.process"/>
+                                    <row opName="Insert" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Roles/Insert_Role.process"/>
+                                    <row opName="Delete" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Roles/Delete_Role.process"/>
+                                    <row opName="Update" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Roles/Update_Role.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="PortType_Roles" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/Maiden_Hotels_Project/Connections/HTTP_Roles.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_Roles</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="Get_All">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_RolesEndpoint1/Get_All</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Get_ByParam">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_RolesEndpoint1/Get_ByParam</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Insert">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_RolesEndpoint1/Insert</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Delete">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_RolesEndpoint1/Delete</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Update">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_RolesEndpoint1/Update</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

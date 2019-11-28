@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/schemas/TIBCO/Schemas/Schema.xsd" xmlns:tns="http://xmlns.example.com/1568731803801" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xmlns.example.com/1568735520034" xmlns:ns3="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Hotel.xsd" targetNamespace="http://xmlns.example.com/1568731803801">
+    <import namespace="http://xmlns.example.com/1568735520034" location="../../../WSDL_generated/WSDL_Hotels.wsdl"/>
+    <import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Hotel.xsd" location="../../Schemas/Hotel.xsd"/>
+    <message name="in_Insert">
+        <part name="Hotels" element="ns3:Hotels"/>
+    </message>
+    <message name="out_Insert">
+        <part name="Status" element="ns3:StatusHotel"/>
+    </message>
+    <message name="in_Get_All"/>
+    <message name="out_Get_ALL">
+        <part name="Hotels" element="ns3:Hotels"/>
+    </message>
+    <message name="in_Delete">
+        <part name="Hotels" element="ns3:Hotels"/>
+    </message>
+    <message name="out_Delete">
+        <part name="Status" element="ns3:StatusHotel"/>
+    </message>
+    <message name="in_Update">
+        <part name="Hotels" element="ns3:Hotels"/>
+    </message>
+    <message name="out_Update">
+        <part name="Status" element="ns3:StatusHotel"/>
+    </message>
+    <message name="in_Get_ByParam">
+        <part name="Hotels" element="ns3:Hotels"/>
+    </message>
+    <message name="out_Get_ByParam">
+        <part name="Hotels" element="ns3:Hotels"/>
+    </message>
+    <portType name="PortType_Hotels">
+        <operation name="insert">
+            <input message="tns:in_Insert"/>
+            <output message="tns:out_Insert"/>
+        </operation>
+        <operation name="Delete">
+            <input message="tns:in_Delete"/>
+            <output message="tns:out_Delete"/>
+        </operation>
+        <operation name="Update">
+            <input message="tns:in_Update"/>
+            <output message="tns:out_Update"/>
+        </operation>
+        <operation name="Get_All">
+            <input message="tns:in_Get_All"/>
+            <output message="tns:out_Get_ALL"/>
+        </operation>
+        <operation name="Get_ByParam">
+            <input message="tns:in_Get_ByParam"/>
+            <output message="tns:out_Get_ByParam"/>
+        </operation>
+    </portType>
+</definitions>

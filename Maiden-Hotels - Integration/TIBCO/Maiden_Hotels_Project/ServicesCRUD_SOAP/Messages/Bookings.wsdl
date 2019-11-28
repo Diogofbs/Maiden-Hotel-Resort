@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Bookings.xsd" xmlns:tns="http://xmlns.example.com/1569428627915" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.example.com/1569428627915">
+    <import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Bookings.xsd" location="../../Schemas/Bookings.xsd"/>
+    <message name="in_Get_ByID">
+        <part name="Bookings" element="ns:Bookings"/>
+    </message>
+    <message name="out_Get_ByID">
+        <part name="Bookings" element="ns:Bookings"/>
+    </message>
+    <message name="in_Get_ByRoom">
+        <part name="Bookings" element="ns:Bookings"/>
+    </message>
+    <message name="out_Get_ByRoom">
+        <part name="Bookings" element="ns:Bookings"/>
+    </message>
+    <message name="in_Insert">
+        <part name="Bookings" element="ns:Bookings"/>
+    </message>
+    <message name="out_Insert">
+        <part name="Status" element="ns:StatusBooking"/>
+    </message>
+    <message name="out_Update_Booking">
+        <part name="Status" element="ns:StatusBooking"/>
+    </message>
+    <message name="in_Update_Booking">
+        <part name="Booking" element="ns:Bookings"/>
+    </message>
+    <message name="in_Update_BookingRoomsHotel">
+        <part name="RoomsHotel" element="ns:BookingsRoomsHotels"/>
+    </message>
+    <message name="out_Update_BookingRoomsHotel">
+        <part name="Status" element="ns:StatusBooking"/>
+    </message>
+    <message name="in_Update_BookingGuests">
+        <part name="BookingGuests" element="ns:BookingsGuests"/>
+    </message>
+    <message name="out_Update_BookingGuests">
+        <part name="Status" element="ns:StatusBooking"/>
+    </message>
+    <message name="in_Update_BookingServices">
+        <part name="BookingServices" element="ns:BookingsServices"/>
+    </message>
+    <message name="out_Update_BookingServices">
+        <part name="Status" element="ns:StatusBooking"/>
+    </message>
+    <message name="in_Delete">
+        <part name="Booking" element="ns:Bookings"/>
+    </message>
+    <message name="out_Delete">
+        <part name="Status" element="ns:StatusBooking"/>
+    </message>
+    <message name="in_Insert_BookingService">
+        <part name="BookingService" element="ns:BookingsServices"/>
+    </message>
+    <message name="out_Insert_BookingService">
+        <part name="Status" element="ns:StatusBooking"/>
+    </message>
+    <message name="in_Get_All"/>
+    <message name="out_Get_All">
+        <part name="Bookings" element="ns:Bookings"/>
+    </message>
+    <message name="in_GetOccupiedRooms">
+        <part name="Bookings" element="ns:Bookings"/>
+    </message>
+    <message name="out_GetOccupiedRooms">
+        <part name="OccupiedRooms" element="ns:OccupiedRooms"/>
+    </message>
+    <message name="in_Delete_Booking_Service">
+        <part name="BookingServices" element="ns:BookingsServices"/>
+    </message>
+    <message name="out_Delete_Booking_Services">
+        <part name="Status" element="ns:StatusBooking"/>
+    </message>
+    <portType name="PortTyp_Bookings">
+        <operation name="Get_ByID">
+            <input message="tns:in_Get_ByID"/>
+            <output message="tns:out_Get_ByID"/>
+        </operation>
+        <operation name="Get_ByRoom">
+            <input message="tns:in_Get_ByRoom"/>
+            <output message="tns:out_Get_ByRoom"/>
+        </operation>
+        <operation name="Insert">
+            <input message="tns:in_Insert"/>
+            <output message="tns:out_Insert"/>
+        </operation>
+        <operation name="Update">
+            <input message="tns:in_Update_Booking"/>
+            <output message="tns:out_Update_Booking"/>
+        </operation>
+        <operation name="UpdateGuests">
+            <input message="tns:in_Update_BookingGuests"/>
+            <output message="tns:out_Update_BookingGuests"/>
+        </operation>
+        <operation name="UpdateServices">
+            <input message="tns:in_Update_BookingServices"/>
+            <output message="tns:out_Update_BookingServices"/>
+        </operation>
+        <operation name="UpdateRooms">
+            <input message="tns:in_Update_BookingRoomsHotel"/>
+            <output message="tns:out_Update_BookingRoomsHotel"/>
+        </operation>
+        <operation name="Delete">
+            <input message="tns:in_Delete"/>
+            <output message="tns:out_Delete"/>
+        </operation>
+        <operation name="InsertServices">
+            <input message="tns:in_Insert_BookingService"/>
+            <output message="tns:out_Insert_BookingService"/>
+        </operation>
+        <operation name="Get_All">
+            <input message="tns:in_Get_All"/>
+            <output message="tns:out_Get_All"/>
+        </operation>
+        <operation name="Get_OccupiedRooms">
+            <input message="tns:in_GetOccupiedRooms"/>
+            <output message="tns:out_GetOccupiedRooms"/>
+        </operation>
+        <operation name="DeleteServices">
+            <input message="tns:in_Delete_Booking_Service"/>
+            <output message="tns:out_Delete_Booking_Services"/>
+        </operation>
+    </portType>
+</definitions>

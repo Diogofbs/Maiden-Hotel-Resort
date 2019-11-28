@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Bookings.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Bookings.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Bookings">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Booking" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Booking">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BkGuests" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="BkServices" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Bkrooms_hotel" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="date" type="xs:string"/>
+			<xs:attribute name="check_in_date" type="xs:string"/>
+			<xs:attribute name="check_out_date" type="xs:string"/>
+			<xs:attribute name="status" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StatusBooking">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SuccessBooking" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SuccessBooking">
+		<xs:complexType>
+			<xs:attribute name="value" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BkGuests">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="first_name" type="xs:string"/>
+			<xs:attribute name="last_name" type="xs:string"/>
+			<xs:attribute name="date_of_birth" type="xs:string"/>
+			<xs:attribute name="gender" type="xs:string"/>
+			<xs:attribute name="id_number" type="xs:string"/>
+			<xs:attribute name="address" type="xs:string"/>
+			<xs:attribute name="contact_number" type="xs:string"/>
+			<xs:attribute name="email" type="xs:string"/>
+			<xs:attribute name="status" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BkServices">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="id_hotel" type="xs:string"/>
+			<xs:attribute name="id_service" type="xs:string"/>
+			<xs:attribute name="cost" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Bkrooms_hotel">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="id_hotel" type="xs:string"/>
+			<xs:attribute name="id_rooms" type="xs:string"/>
+			<xs:attribute name="room_number" type="xs:string"/>
+			<xs:attribute name="cost" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BookingsGuests">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BookingGuest" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BookingGuest">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="id_booking" type="xs:string"/>
+			<xs:attribute name="id_guest" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BookingsServices">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BookingsService" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BookingsService">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="id_booking" type="xs:string"/>
+			<xs:attribute name="id_service_hotel" type="xs:string"/>
+			<xs:attribute name="cost" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BookingsRoomsHotels">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="BookingsRoomsHotel" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BookingsRoomsHotel">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="id_booking" type="xs:string"/>
+			<xs:attribute name="id_rooms_hotel" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OccupiedRooms">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OccupiedRoom" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OccupiedRoom">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="id_hotel" type="xs:string"/>
+			<xs:attribute name="id_rooms" type="xs:string"/>
+			<xs:attribute name="type" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

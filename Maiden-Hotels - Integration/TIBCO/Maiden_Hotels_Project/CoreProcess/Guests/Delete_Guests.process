@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd" xmlns:pfx3="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Guests.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Guests.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/Guests.xsd"/>
+    <pd:name>Maiden_Hotels_Project/CoreProcess/Guests/Delete_Guests.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:Guests"/>
+    <pd:startX>96</pd:startX>
+    <pd:startY>182</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="$Delete/jdbcUpdateActivityOutput/noOfUpdates>0">
+                <pfx3:StatusGuest>
+                    <pfx3:SuccessGuest>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="1"/>
+                        </xsl:attribute>
+                    </pfx3:SuccessGuest>
+                </pfx3:StatusGuest>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx3:StatusGuest>
+                    <pfx3:SuccessGuest>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="-1"/>
+                        </xsl:attribute>
+                    </pfx3:SuccessGuest>
+                </pfx3:StatusGuest>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:StatusGuest"/>
+    <pd:endX>695</pd:endX>
+    <pd:endY>165</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1568907512146</pd:targetNamespace>
+    <pd:activity name="Delete">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>309</pd:x>
+        <pd:y>96</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Maiden_Hotels_Project/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>Delete FROM guests WHERE id=?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>id</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <id>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx3:Guests/pfx3:Guest[1]/@id)">
+                            <xsl:value-of select="$Start/pfx3:Guests/pfx3:Guest[1]/@id"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </id>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Error">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>412</pd:x>
+        <pd:y>226</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Delete</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Delete</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Delete</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

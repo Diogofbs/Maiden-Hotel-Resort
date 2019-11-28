@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Hotel.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Hotel.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Hotels">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Hotel" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Hotel">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="name" type="xs:string"/>
+			<xs:attribute name="location" type="xs:string"/>
+			<xs:attribute name="classification" type="xs:string"/>
+			<xs:attribute name="type" type="xs:string"/>
+			<xs:attribute name="imagePath" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StatusHotel">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SucessHotel"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SucessHotel">
+		<xs:complexType>
+			<xs:attribute name="value" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

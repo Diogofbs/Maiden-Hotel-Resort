@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.example.com/1569419423794" xmlns:ns0="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Clients.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://xmlns.example.com/1569419423794">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Clients.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Clients.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="Client">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:GuestClient" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:string"/>
+                    <xs:attribute name="id_guest" type="xs:string"/>
+                    <xs:attribute name="money_spent" type="xs:string"/>
+                    <xs:attribute name="password" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Clients">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Client" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GuestClient">
+                <xs:complexType>
+                    <xs:attribute name="address" type="xs:string"/>
+                    <xs:attribute name="contact_number" type="xs:string"/>
+                    <xs:attribute name="date_of_birth" type="xs:string"/>
+                    <xs:attribute name="email" type="xs:string"/>
+                    <xs:attribute name="first_name" type="xs:string"/>
+                    <xs:attribute name="gender" type="xs:string"/>
+                    <xs:attribute name="id" type="xs:string"/>
+                    <xs:attribute name="id_number" type="xs:string"/>
+                    <xs:attribute name="last_name" type="xs:string"/>
+                    <xs:attribute name="status" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="StatusClient">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:SuccessClient" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SuccessClient">
+                <xs:complexType>
+                    <xs:attribute name="value" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="Service_Clients">
+        <wsdl:port name="PortType_Clients" binding="tns:PortType_ClientsBinding">
+            <soap:address location="http://Localhost:10106/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Clients.serviceagent/PortType_Clients"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="PortType_Clients">
+        <wsdl:operation name="Delete">
+            <wsdl:input message="tns:in_Delete"/>
+            <wsdl:output message="tns:out_Delete"/>
+        </wsdl:operation>
+        <wsdl:operation name="Get_All">
+            <wsdl:input message="tns:in_Get_All"/>
+            <wsdl:output message="tns:out_Get_All"/>
+        </wsdl:operation>
+        <wsdl:operation name="Insert">
+            <wsdl:input message="tns:in_Insert"/>
+            <wsdl:output message="tns:out_Insert"/>
+        </wsdl:operation>
+        <wsdl:operation name="Update">
+            <wsdl:input message="tns:in_Update"/>
+            <wsdl:output message="tns:out_Update"/>
+        </wsdl:operation>
+        <wsdl:operation name="Get_ByParam">
+            <wsdl:input message="tns:in_Get_ByParam"/>
+            <wsdl:output message="tns:out_Get_ByParam"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PortType_ClientsBinding" type="tns:PortType_Clients">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Delete">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Clients.serviceagent/PortType_Clients/Delete"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Clients"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Get_All">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Clients.serviceagent/PortType_Clients/Get_All"/>
+            <wsdl:input>
+                <soap:body use="literal" parts=""/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Clients"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Insert">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Clients.serviceagent/PortType_Clients/Insert"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Clients"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Update">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Clients.serviceagent/PortType_Clients/Update"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Clients"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Get_ByParam">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Clients.serviceagent/PortType_Clients/Get_ByParam"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Clients"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Clients"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="in_Delete">
+        <wsdl:part name="Clients" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="out_Delete">
+        <wsdl:part name="Status" element="ns0:StatusClient"/>
+    </wsdl:message>
+    <wsdl:message name="in_Get_All"/>
+    <wsdl:message name="out_Get_All">
+        <wsdl:part name="Clients" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="in_Insert">
+        <wsdl:part name="Clients" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="out_Insert">
+        <wsdl:part name="Status" element="ns0:StatusClient"/>
+    </wsdl:message>
+    <wsdl:message name="in_Update">
+        <wsdl:part name="Clients" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="out_Update">
+        <wsdl:part name="Status" element="ns0:StatusClient"/>
+    </wsdl:message>
+    <wsdl:message name="in_Get_ByParam">
+        <wsdl:part name="Clients" element="ns0:Clients"/>
+    </wsdl:message>
+    <wsdl:message name="out_Get_ByParam">
+        <wsdl:part name="Clients" element="ns0:Clients"/>
+    </wsdl:message>
+</wsdl:definitions>

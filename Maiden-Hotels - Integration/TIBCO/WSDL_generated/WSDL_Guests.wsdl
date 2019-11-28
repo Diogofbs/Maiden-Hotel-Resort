@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.example.com/1569335583321" xmlns:ns0="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Guests.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://xmlns.example.com/1569335583321">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Guests.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Guests.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="Guest">
+                <xs:complexType>
+                    <xs:attribute name="address" type="xs:string"/>
+                    <xs:attribute name="contact_number" type="xs:string"/>
+                    <xs:attribute name="date_of_birth" type="xs:string"/>
+                    <xs:attribute name="email" type="xs:string"/>
+                    <xs:attribute name="first_name" type="xs:string"/>
+                    <xs:attribute name="gender" type="xs:string"/>
+                    <xs:attribute name="id" type="xs:string"/>
+                    <xs:attribute name="id_number" type="xs:string"/>
+                    <xs:attribute name="last_name" type="xs:string"/>
+                    <xs:attribute name="status" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Guests">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Guest" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="StatusGuest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:SuccessGuest" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SuccessGuest">
+                <xs:complexType>
+                    <xs:attribute name="value" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="Service_Guests">
+        <wsdl:port name="PortType_Guests" binding="tns:PortType_GuestsBinding">
+            <soap:address location="http://Localhost:10105/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="PortType_Guests">
+        <wsdl:operation name="Delete">
+            <wsdl:input message="tns:in_Delete"/>
+            <wsdl:output message="tns:out_Delete"/>
+        </wsdl:operation>
+        <wsdl:operation name="Get_All">
+            <wsdl:input message="tns:in_Get_All"/>
+            <wsdl:output message="tns:out_Get_All"/>
+        </wsdl:operation>
+        <wsdl:operation name="Insert">
+            <wsdl:input message="tns:in_Insert"/>
+            <wsdl:output message="tns:out_Insert"/>
+        </wsdl:operation>
+        <wsdl:operation name="Update">
+            <wsdl:input message="tns:in_Update"/>
+            <wsdl:output message="tns:out_Update"/>
+        </wsdl:operation>
+        <wsdl:operation name="Get_ByParam">
+            <wsdl:input message="tns:in_Get_ByParam"/>
+            <wsdl:output message="tns:out_Get_ByParam"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PortType_GuestsBinding" type="tns:PortType_Guests">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Delete">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests/Delete"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Guests"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Get_All">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests/Get_All"/>
+            <wsdl:input>
+                <soap:body use="literal" parts=""/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Guests"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Insert">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests/Insert"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Guests"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Update">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests/Update"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Guests"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Get_ByParam">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests/Get_ByParam"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Guests"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Guests"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="in_Delete">
+        <wsdl:part name="Guests" element="ns0:Guests"/>
+    </wsdl:message>
+    <wsdl:message name="out_Delete">
+        <wsdl:part name="Status" element="ns0:StatusGuest"/>
+    </wsdl:message>
+    <wsdl:message name="in_Get_All"/>
+    <wsdl:message name="out_Get_All">
+        <wsdl:part name="Guests" element="ns0:Guests"/>
+    </wsdl:message>
+    <wsdl:message name="in_Insert">
+        <wsdl:part name="Guests" element="ns0:Guests"/>
+    </wsdl:message>
+    <wsdl:message name="out_Insert">
+        <wsdl:part name="Status" element="ns0:StatusGuest"/>
+    </wsdl:message>
+    <wsdl:message name="in_Update">
+        <wsdl:part name="Guests" element="ns0:Guests"/>
+    </wsdl:message>
+    <wsdl:message name="out_Update">
+        <wsdl:part name="Status" element="ns0:StatusGuest"/>
+    </wsdl:message>
+    <wsdl:message name="in_Get_ByParam">
+        <wsdl:part name="Guests" element="ns0:Guests"/>
+    </wsdl:message>
+    <wsdl:message name="out_Get_ByParam">
+        <wsdl:part name="Guests" element="ns0:Guests"/>
+    </wsdl:message>
+</wsdl:definitions>

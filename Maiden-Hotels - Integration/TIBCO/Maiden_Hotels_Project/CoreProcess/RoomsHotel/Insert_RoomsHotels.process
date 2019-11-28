@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd"/>
+    <pd:name>Maiden_Hotels_Project/CoreProcess/RoomsHotel/Insert_RoomsHotels.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:roomsHotels"/>
+    <pd:startX>92</pd:startX>
+    <pd:startY>258</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="$Query_id/resultSet/Record">
+                <pfx2:StatusRoomsHotel>
+                    <pfx2:SuccessRoomsHotel>
+                        <xsl:if test="$Query_id/resultSet/Record[1]/id">
+                            <xsl:attribute name="value">
+                                <xsl:value-of select="$Query_id/resultSet/Record[1]/id"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </pfx2:SuccessRoomsHotel>
+                </pfx2:StatusRoomsHotel>
+            </xsl:when>
+            <xsl:when test="not(exists($Query_id/resultSet/Record)) and $Insert/jdbcUpdateActivityOutput/noOfUpdates>0">
+                <pfx2:StatusRoomsHotel>
+                    <pfx2:SuccessRoomsHotel>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="0"/>
+                        </xsl:attribute>
+                    </pfx2:SuccessRoomsHotel>
+                </pfx2:StatusRoomsHotel>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx2:StatusRoomsHotel>
+                    <pfx2:SuccessRoomsHotel>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="-1"/>
+                        </xsl:attribute>
+                    </pfx2:SuccessRoomsHotel>
+                </pfx2:StatusRoomsHotel>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx2:StatusRoomsHotel"/>
+    <pd:endX>976</pd:endX>
+    <pd:endY>234</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1568907511195</pd:targetNamespace>
+    <pd:activity name="Insert">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>245</pd:x>
+        <pd:y>160</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>Insert into rooms_hotel (id_hotel,id_rooms,room_number,cost) VALUES(?,?,?,?)</statement>
+            <jdbcSharedConfig>/Maiden_Hotels_Project/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>id_hotel</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>id_rooms</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>room_number</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>cost</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <id_hotel>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id_hotel)">
+                            <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id_hotel"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </id_hotel>
+                <id_rooms>
+                    <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id_rooms"/>
+                </id_rooms>
+                <room_number>
+                    <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@room_number"/>
+                </room_number>
+                <cost>
+                    <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@cost"/>
+                </cost>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Query_id">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>798</pd:x>
+        <pd:y>184</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Maiden_Hotels_Project/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>Select * from rooms_hotel WHERE id_hotel=? and room_number=?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>id_hotel</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>room_number</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>id</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_hotel</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_rooms</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>room_number</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>cost</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>7</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>FLOAT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <id_hotel>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id_hotel)">
+                            <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id_hotel"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </id_hotel>
+                <room_number>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@room_number)">
+                            <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@room_number"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </room_number>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Error">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>391</pd:x>
+        <pd:y>319</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Insert</pd:from>
+        <pd:to>Query_id</pd:to>
+        <pd:xpathDescription>if insert</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Insert/jdbcUpdateActivityOutput/noOfUpdates&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query_id</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Insert</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Query_id</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Insert</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://xmlns.example.com/1570439064291" xmlns:ns0="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Schema.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://xmlns.example.com/1570439064291">
+    <wsdl:types>
+        <xs:schema xmlns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Schema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Schema.xsd" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:element name="Role">
+                <xs:complexType>
+                    <xs:attribute name="id" type="xs:string"/>
+                    <xs:attribute name="name" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Roles">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:Role" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="StatusRole">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="ns0:SuccessRole" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SuccessRole">
+                <xs:complexType>
+                    <xs:attribute name="value" type="xs:string"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="Service_Roles">
+        <wsdl:port name="PortType_Roles" binding="tns:PortType_RolesBinding">
+            <soap:address location="http://Localhost:10108/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_Roles"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="PortType_Roles">
+        <wsdl:operation name="Delete">
+            <wsdl:input message="tns:in_Delete"/>
+            <wsdl:output message="tns:out_Delete"/>
+        </wsdl:operation>
+        <wsdl:operation name="Get_All">
+            <wsdl:input message="tns:in_Get_All"/>
+            <wsdl:output message="tns:out_Get_All"/>
+        </wsdl:operation>
+        <wsdl:operation name="Insert">
+            <wsdl:input message="tns:in_Insert"/>
+            <wsdl:output message="tns:out_Insert"/>
+        </wsdl:operation>
+        <wsdl:operation name="Update">
+            <wsdl:input message="tns:in_Update"/>
+            <wsdl:output message="tns:out_Update"/>
+        </wsdl:operation>
+        <wsdl:operation name="Get_ByParam">
+            <wsdl:input message="tns:in_Get_ByParam"/>
+            <wsdl:output message="tns:out_Get_ByParam"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PortType_RolesBinding" type="tns:PortType_Roles">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Delete">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_RolesEndpoint1/Delete"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Roles"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Get_All">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_RolesEndpoint1/Get_All"/>
+            <wsdl:input>
+                <soap:body use="literal" parts=""/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Roles"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Insert">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_RolesEndpoint1/Insert"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Roles"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Update">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_RolesEndpoint1/Update"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Roles"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Status"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Get_ByParam">
+            <soap:operation style="document" soapAction="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent/PortType_RolesEndpoint1/Get_ByParam"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="Roles"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="Roles"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="in_Delete">
+        <wsdl:part name="Roles" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="out_Delete">
+        <wsdl:part name="Status" element="ns0:StatusRole"/>
+    </wsdl:message>
+    <wsdl:message name="in_Get_All"/>
+    <wsdl:message name="out_Get_All">
+        <wsdl:part name="Roles" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="in_Insert">
+        <wsdl:part name="Roles" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="out_Insert">
+        <wsdl:part name="Status" element="ns0:StatusRole"/>
+    </wsdl:message>
+    <wsdl:message name="in_Update">
+        <wsdl:part name="Roles" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="out_Update">
+        <wsdl:part name="Status" element="ns0:StatusRole"/>
+    </wsdl:message>
+    <wsdl:message name="in_Get_ByParam">
+        <wsdl:part name="Roles" element="ns0:Roles"/>
+    </wsdl:message>
+    <wsdl:message name="out_Get_ByParam">
+        <wsdl:part name="Roles" element="ns0:Roles"/>
+    </wsdl:message>
+</wsdl:definitions>

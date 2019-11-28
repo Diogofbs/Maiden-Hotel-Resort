@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://xmlns.example.com/1568822441528" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://xmlns.example.com/1570439393155" xmlns:ns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Schema.xsd" xmlns:pfx3="http://xmlns.example.com/1570445889051" xmlns:ns2="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Schema.xsd2" xmlns:ns1="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Services.xsd">
+    <wsdl:import namespace="http://xmlns.example.com/1568822441528" location="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Messages/Services.wsdl"/>
+    <wsdl:import namespace="http://xmlns.example.com/1570439393155" location="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Messages/Roles.wsdl"/>
+    <wsdl:import namespace="http://xmlns.example.com/1570445889051" location="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Messages/Backoffices.wsdl"/>
+    <pd:name>Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Backoffices/Insert_Backoffice.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx3:in_Insert"/>
+    <pd:startX>149</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <pfx3:out_Insert>
+            <Status>
+                <xsl:copy-of select="$Call_Insert/ns2:StatusBackoffice"/>
+            </Status>
+        </pfx3:out_Insert>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx3:out_Insert"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1568823205024</pd:targetNamespace>
+    <pd:activity name="Call_Insert">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>186</pd:y>
+        <config>
+            <processName>/Maiden_Hotels_Project/CoreProcess/Backoffices/Insert_Backoffices.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx3:in_Insert/Backoffices/ns2:Backoffices"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Call_Insert</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call_Insert</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,184 @@
+<br>
+<div class="container-fluid text-center" *ngIf="guest && client">
+    <div class="row content">
+      <div class="col-sm-10 text-left">
+        <h1 >Client Information</h1>
+        <hr>
+        <div *ngIf="error" class="alert alert-danger">
+                <h3>Error occurred using the webservices!</h3>
+                <strong>{{ error }}</strong><br>
+                Please contact the coding monkeys.
+              </div>
+              <div *ngIf="success" class="alert alert-success">
+                  <h3>Success! </h3>
+                  <strong>{{ success }}</strong>
+                </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <button class="btn btn-secondary" data-toggle="modal" data-target="#edit_passwordModal">Change Passowrd</button>
+            </div>
+            <div class="col-sm-3">
+            <button class="btn btn-secondary" data-toggle="modal" data-target="#edit_guestModal">Edit Information</button>
+            </div>
+        </div>
+        <hr>
+        <div>
+        <table style="text-align: center; background-color: rgba(255, 255, 255, 0.6); " class="table table-striped">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Information</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td><b>First Name</b></td>
+                <td>{{guest.firstName}}</td>
+              </tr>
+              <tr >
+                <td><b>Last Name</b> </td>
+                <td>{{guest.lastName}}</td>
+              </tr>
+              <tr >
+                <td><b>Address</b> </td>
+                <td>{{guest.address}}</td>
+              </tr>
+              <tr >
+                <td><b>Contact Number</b> </td>
+                <td>{{guest.contactNumber}}</td>
+              </tr>
+              <tr >
+                <td><b>Date of birth</b> </td>
+                <td>{{guest.dateOfBirth.substring(0,10)}}</td>
+              </tr>
+              <tr >
+                <td><b>Email</b> </td>
+                <td>{{guest.email}}</td>
+              </tr>
+              <tr >
+                <td><b>Identification Number</b> </td>
+                <td>{{guest.idNumber}}</td>
+              </tr>
+              <tr >
+                <td><b>Credits</b> </td>
+                <td>{{client.moneySpent}}&euro;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+</div>
+
+<!-- Modal Edit-->
+<div class="modal fade" id="edit_guestModal" tabindex="3" guest="dialog" aria-labelledby="edit_guestModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" guest="document">
+        <div class="modal-content">
+        <form [formGroup] = "editForm" (ngSubmit)="updateGuest()">
+        <div class="modal-header">
+            <h5 class="modal-title" id="edit_guestModalLabel">Edit Existing information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <!--<div class="form-group">
+                <input type="hidden" class="form-control" id="edit_guestId"  formControlWelcomeBonus="guestId" name="guestId">
+            </div>-->
+            <div class="form-group">
+                <label for="insert_guestFirstName">First Name:</label>
+                <input type="text" class="form-control" id="insert_guestFirstName"  formControlName="guestFirstName" name="guestFirstName">
+                <span *ngIf="!editForm.get('guestFirstName').valid && editForm.get('guestFirstName').touched"
+                  class="help-block alert-warning">Please enter a valid first name!</span>
+            </div>
+            <div class="form-group">
+              <label for="insert_guestLastName">Last Name:</label>
+              <input type="text" class="form-control" id="insert_guestLastName"  formControlName="guestLastName" name="guestLastName">
+              <span *ngIf="!editForm.get('guestLastName').valid && editForm.get('guestLastName').touched"
+                class="help-block alert-warning">Please enter a valid last name!</span>
+          </div>
+          <div class="form-group">
+            <label for="insert_guestDateBirth">Date of Birth:</label>
+            <input type="date" class="form-control" id="insert_guestDateBirth"  formControlName="guestDateBirth" name="guestDateBirth">
+            <span *ngIf="!editForm.get('guestDateBirth').valid && editForm.get('guestDateBirth').touched"
+              class="help-block alert-warning">Please enter a date!</span>
+          </div>
+          <div class="form-group">
+              <label for="insert_guestGender">Select Gender:</label><br>
+              <input type="radio" name="guestGender" id="insert_guestGender1" formControlName="guestGender" value="Male" checked> Male<br>
+              <input type="radio" name="guestGender" id="insert_guestGender2" formControlName="guestGender" value="Female"> Female<br>
+              <input type="radio" name="guestGender" id="insert_guestGender3" formControlName="guestGender" value="Other">Other<br>
+              <span *ngIf="!editForm.get('guestGender').valid && editForm.get('guestGender').touched"
+              class="help-block alert-warning">Please enter Gender!</span>
+          </div>
+          <div class="form-group">
+              <label for="insert_guestIdNumber">Identification Number:</label>
+              <input type="text" class="form-control" id="insert_guestIdNumber"  formControlName="guestIdNumber" name="guestIdNumber">
+              <span *ngIf="!editForm.get('guestIdNumber').valid && editForm.get('guestIdNumber').touched"
+                class="help-block alert-warning">Please enter a valid Identification Number!</span>
+          </div>
+          <div class="form-group">
+              <label for="insert_guestAddress">Address:</label>
+              <input type="text" class="form-control" id="insert_guestAddress"  formControlName="guestAddress" name="guestAddress">
+              <span *ngIf="!editForm.get('guestAddress').valid && editForm.get('guestAddress').touched"
+                class="help-block alert-warning">Please enter a valid Address!</span>
+          </div>
+          <div class="form-group">
+              <label for="insert_guestContactNumber">Contact Number:</label>
+              <input type="text" class="form-control" id="insert_guestContactNumber"  formControlName="guestContactNumber" name="guestContactNumber">
+              <span *ngIf="!editForm.get('guestContactNumber').valid && editForm.get('guestContactNumber').touched"
+                class="help-block alert-warning">Please enter a valid Contact Number!</span>
+          </div>
+          <hr>
+          <div class="form-group">
+                  <label for="guestEmail">guest email:</label>
+                  <input type="text" class="form-control" id="guestEmail"  formControlName="guestEmail" name="guestEmail">
+                  <span *ngIf="!editForm.get('guestEmail').valid && editForm.get('guestEmail').touched"
+                  class="help-block alert-warning">Please enter a valid email!</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!editForm.valid" onclick="$('#edit_guestModal').modal('hide')">Edit guest</button>
+        </div>
+        </form>
+        </div>
+    </div>
+  </div>
+
+<!-- Modal change password-->
+<div class="modal fade" id="edit_passwordModal" tabindex="3" guest="dialog" aria-labelledby="edit_passwordModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" guest="document">
+        <div class="modal-content">
+            <form [formGroup] = "passwordForm" (ngSubmit)="updatePassword()">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit_passwordModalLabel">Edit password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="insert_new_password">New Passowrd: </label>
+                    <input type="password" class="form-control" id="insert_new_password"  formControlName="new_password" name="new_password">
+                    <span *ngIf="!passwordForm.get('new_password').valid && passwordForm.get('new_password').touched"
+                      class="help-block alert-warning">Please enter a valid new password!</span>
+                </div>
+                <div class="form-group">
+                        <label for="insert_new_password_again">New password (repeat):</label>
+                        <input type="password" class="form-control" id="insert_new_password_again"  formControlName="new_password_again" name="new_password_again">
+                        <span *ngIf="!passwordForm.get('new_password_again').valid && passwordForm.get('new_password_again').touched"
+                          class="help-block alert-warning">Please enter repeat the new password!</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!passwordForm.valid" onclick="$('#edit_passwordModal').modal('hide')">Change Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

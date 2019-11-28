@@ -1,0 +1,140 @@
+
+<div class="container">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <div class="nav-side-menu" tabindex="0">
+        <div class="brand">Maiden Hotels & Resorts</div>
+        <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+            <div class="menu-list">
+
+                <ul id="menu-content" class="menu-content collapse out">
+                    <li>
+                        <a routerLink="home"
+                        routerLinkActive="nav-active" >
+                        <i class="fa fa-home fa-lg" data-placement="right" title="home page"></i> Home
+                        </a>
+                      </li>
+                    <li>
+                      <a routerLinkActive="nav-active" routerLink='/booking'>
+                      <i class="fa fa-book fa-lg" data-placement="right" title="Booking your vacation on one of our hotels!"></i> Book your hotel!
+                      </a>
+                    </li>
+
+                    <li  data-toggle="collapse" data-target="#products" class="collapsed">
+                      <a ><i class="fa fa-h-square"></i> Our Hotels <span class="arrow"></span></a>
+                    </li>
+                    <ul class="sub-menu collapse" id="products">
+                        <li data-placement="right" title="See our Options"><a
+                          routerLink="hotels/all"
+                          routerLinkActive="nav-active">All</a>
+                        </li>
+                        <li data-placement="right" title="See our resorts"><a
+                          routerLink="hotels/Resort"
+                          routerLinkActive="nav-active">Resorts</a>
+                        </li>
+                        <li data-placement="right" title="See our hostels"><a
+                          routerLink="hotels/Hostel"
+                          routerLinkActive="active">Hostels</a>
+                        </li>
+                        <li data-placement="right" title="See our hotels"><a
+                          routerLink="hotels/Hotel"
+                          routerLinkActive="active">Hotels</a>
+                        </li>
+                        <li data-placement="right" title="See our hotels"><a
+                            routerLink="hotels/search"
+                            routerLinkActive="active">Search</a>
+                          </li>
+                    </ul>
+
+
+                     <li *ngIf="!employer && !guest"  data-toggle="collapse" data-target="#login" class="collapsed">
+                      <a ><i class="fa fa-user"></i> Login <span class="arrow"></span></a>
+                    </li>
+                    <ul *ngIf="!employer && !guest" class="sub-menu collapse" id="login">
+                        <li data-placement="right" title="Login for employees"><a routerLink='/login-backoffice' routerLinkActive="router-link-active"  >Backoffice</a></li>
+                        <li data-placement="right" title="Login for clients"><a  routerLink='/login-client' routerLinkActive="nav-active">Client</a></li>
+                    </ul>
+
+                </ul>
+         </div>
+        <!-- <br><br><br><br><br><br><br><br><br>-->
+
+         <div style=" position: fixed;bottom: 0;width: 300px;" *ngIf="guest">
+            <div style=" text-align: center;">
+                <ul  *ngIf="guest.firstName !==''">
+                    <li title="your account" ><i class="fa fa-globe fa-lg"></i> <b> {{guest.firstName}} {{guest.lastName}}</b></li>
+                </ul>
+            </div>
+
+                <div class="menu-list" *ngIf="guest.firstName !==''">
+                    <ul id="menu-content" class="menu-content collapse out">
+                        <li  data-toggle="collapse" data-target="#dashboard" class="collapsed" routerLinkActive="nav-active" routerLink='/Client/{{guest.firstName}}'>
+                            <a ><i class="fa fa-user"></i> Client info</a>
+                        </li>
+                        <li  data-toggle="collapse" data-target="#dashboard" class="collapsed" routerLinkActive="nav-active" routerLink='/Client/BookingSearch'>
+                            <a ><i class="fa fa-dashboard"></i> Booking Search</a>
+                        </li>
+                    </ul>
+            </div>
+            <ul  style=" text-align: center;" *ngIf="guest.firstName !==''">
+                    <li data-placement="right" title="here you can Logout" (click)="onLogout()"><b>Logout</b></li>
+            </ul>
+
+
+         </div>
+         <div style=" position: fixed;bottom: 0;width: 300px;" *ngIf="employer && roles " >
+                <ul  style=" text-align: center;" *ngIf="employer.username !==''">
+                    <li data-placement="right" title="your account" ><i class="fa fa-globe fa-lg"></i><b> {{employer.username}} ({{getRoleByIdRole(this.employer.idRole)?.name}})</b></li>
+                </ul>
+                <div class="menu-list">
+                    <ul id="menu-content" class="menu-content collapse out">
+                        <li  data-toggle="collapse" data-target="#dashboard" class="collapsed">
+                            <a ><i class="fa fa-dashboard"></i> Dashboard <span class="arrow"></span></a>
+                        </li>
+                        <ul *ngIf="employer" class="sub-menu collapse" id="dashboard">
+                            <li *ngIf="employer" data-placement="right" title="Add, edit or remove bookings"><a routerLinkActive="nav-active" routerLink='/manage-bookings'>Manage Bookings</a></li>
+                            <li *ngIf="employer.idRole == 1 || employer.idRole == 2 " data-toggle="tooltip" data-placement="right" title="Add, edit or remove guests"><a  routerLinkActive="nav-active" routerLink='/manage-guests'>Manage Guests</a></li>
+                            <li *ngIf="employer.idRole == 1 || employer.idRole == 2" data-placement="right" title="Add, edit or remove clients" ><a  routerLinkActive="nav-active" routerLink='/manage-clients'>Manage Clients</a></li>
+                            <li data-placement="right" title="Add, edit or remove hotels"><a  routerLinkActive="nav-active" routerLink='/manage-hotels'>Manage Hotels</a></li>
+                            <li data-placement="right" title="Add, edit or remove services"><a routerLinkActive="nav-active" routerLink='/manage-services'>Manage Services</a></li>
+                            <li data-placement="right" title="Add, edit or remove rooms"><a routerLinkActive="nav-active" routerLink='/manage-rooms'>Manage Rooms</a></li>
+                            <li *ngIf="employer.idRole == 1" data-placement="right" title="Add, edit or remove employers"><a routerLinkActive="nav-active" routerLink='/manage-backoffices'>Manage Backoffices</a></li>
+                        </ul>
+                        <li data-toggle="collapse" data-target="#service" class="collapsed">
+                            <a ><i class="fa fa-globe fa-lg"></i> Hotel Services <span class="arrow"></span></a>
+                        </li>
+                        <ul class="sub-menu collapse" id="service">
+                            <li data-placement="right" title="Information about our restaurants"><a routerLinkActive="nav-active" routerLink='/charge-services'>Charge services</a></li>
+                            <!--<li data-placement="right" title="Information about our Spas" >Spa & Massages</li>
+                            <li data-placement="right" title="Information about our Gymns">Gymns</li>
+                            <li data-placement="right" title="Information about our pools" >Pools</li>-->
+                        </ul>
+                    </ul>
+                </div>
+                <ul  style=" text-align: center;" *ngIf="employer.username !==''">
+                    <li data-placement="right" title="here you can Logout" (click)="onLogout()"><b>Logout</b></li>
+                </ul>
+
+         </div>
+    </div>
+
+    <div  id="contentRight" class="w-100 h-100" >
+        <div >
+            <div class="card" style="background-color: rgba(255, 255, 255, 0.8);">
+              <router-outlet  ></router-outlet>
+              <hr>
+              <app-footer ></app-footer>
+
+          </div>
+        </div>
+    </div>
+
+  </div>
+
+  <!-- && roleName adicionar linha 96-->
+  <!-- {{roleName}}-->
+
+
+
+

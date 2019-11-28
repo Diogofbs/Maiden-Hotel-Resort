@@ -1,0 +1,63 @@
+<br>
+<div class="container-fluid text-center" *ngIf="fetchedHotel">
+    <div class="row content">
+      <div class="col-sm-9 text-left">
+        <h1 >{{hotel.name}}</h1>
+        <br>
+        <div class="card-img-top card-img-top-250">
+            <img class="img-fluid w-100" src="../../{{hotel.imagePath}}" alt="carousel 1">
+        </div>
+        <br>
+        <p> Best {{hotel.type}} of {{hotel.location}} </p>
+        <hr>
+        <h3>Services</h3>
+        <p>Services offer by the hotel</p>
+        <table style="text-align: center" class="table table-striped" *ngIf="services">
+            <tbody>
+              <tr >
+                <td *ngFor="let service of hotelServices;"><b>{{getServiceByIdService(service.idService).name}}</b></td>
+              </tr>
+            </tbody>
+          </table>
+        <hr>
+        <h3>Rooms</h3>
+        <p>List of the available rooms</p>
+        <h4>Choose dates</h4>
+        <div class="row" style="background-color: rgba(255, 255, 255, 0.6); text-align: center;">
+            <div class="col-md-2">
+                <!-- empty col -->
+             </div>
+          <div class="col-md-3">
+            <label for="checkInDate"><b>check-in Date:</b></label>
+            <input type="date" class="form-control" [(ngModel)]="checkInInput" min="today">
+          </div>
+          <div class="col-md-2">
+             <!-- empty col -->
+          </div>
+          <div class="col-md-3">
+            <label for="checkOutDate"><b>check-out Date:</b></label>
+             <input type="date" class="form-control" [(ngModel)]="checkOutInput">
+          </div>
+         <!-- <div class="col-md-3">
+            <button  class="btn btn-secondary" type="button" (click) ="SelectDates()"  >Select dates</button>
+          </div> -->
+        </div>
+
+        <br>
+          <app-rooms-hotel *ngIf="selectDate()" [id]="hotel.id" [checkInInput]="checkInInput" [checkOutInput]="checkOutInput" ></app-rooms-hotel>
+
+
+      </div>
+      <div class="col-sm-3 text-left">
+        <br><br><br>
+          <p><b>Location :</b> {{hotel.location}}</p>
+          <p><b>Type:</b> {{hotel.type}}</p>
+          <p *ngIf="hotel.classification == 1"><b>Classification : </b>&#9734;</p>
+          <p *ngIf="hotel.classification == 2"><b>Classification : </b>&#9734;&#9734;</p>
+          <p *ngIf="hotel.classification == 3"><b>Classification : </b>&#9734;&#9734;&#9734;</p>
+          <p *ngIf="hotel.classification == 4"><b>Classification : </b>&#9734;&#9734;&#9734;&#9734;</p>
+          <p *ngIf="hotel.classification == 5"><b>Classification : </b>&#9734;&#9734;&#9734;&#9734;&#9734;</p>
+        </div>
+    </div>
+  </div>
+

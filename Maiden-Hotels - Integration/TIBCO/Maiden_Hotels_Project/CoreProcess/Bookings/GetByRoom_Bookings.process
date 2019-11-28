@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Bookings.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Bookings.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/Bookings.xsd"/>
+    <pd:name>Maiden_Hotels_Project/CoreProcess/Bookings/GetByRoom_Bookings.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx:Bookings"/>
+    <pd:startX>156</pd:startX>
+    <pd:startY>312</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="$Call_GetBooking/pfx:Bookings/pfx:Booking/@id!=&quot;&quot;">
+                <xsl:for-each select="$Call_GetBooking/pfx:Bookings">
+                    <pfx:Bookings>
+                        <xsl:for-each select="pfx:Booking">
+                            <pfx:Booking>
+                                <xsl:if test="@id">
+                                    <xsl:attribute name="id">
+                                        <xsl:value-of select="@id"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="@date">
+                                    <xsl:attribute name="date">
+                                        <xsl:value-of select="@date"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="@check_in_date">
+                                    <xsl:attribute name="check_in_date">
+                                        <xsl:value-of select="@check_in_date"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="@check_out_date">
+                                    <xsl:attribute name="check_out_date">
+                                        <xsl:value-of select="@check_out_date"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="@status">
+                                    <xsl:attribute name="status">
+                                        <xsl:value-of select="@status"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:for-each select="pfx:BkGuests">
+                                    <pfx:BkGuests>
+                                        <xsl:if test="@id">
+                                            <xsl:attribute name="id">
+                                                <xsl:value-of select="@id"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@first_name">
+                                            <xsl:attribute name="first_name">
+                                                <xsl:value-of select="@first_name"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@last_name">
+                                            <xsl:attribute name="last_name">
+                                                <xsl:value-of select="@last_name"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@date_of_birth">
+                                            <xsl:attribute name="date_of_birth">
+                                                <xsl:value-of select="@date_of_birth"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@gender">
+                                            <xsl:attribute name="gender">
+                                                <xsl:value-of select="@gender"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@id_number">
+                                            <xsl:attribute name="id_number">
+                                                <xsl:value-of select="@id_number"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@address">
+                                            <xsl:attribute name="address">
+                                                <xsl:value-of select="@address"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@contact_number">
+                                            <xsl:attribute name="contact_number">
+                                                <xsl:value-of select="@contact_number"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@email">
+                                            <xsl:attribute name="email">
+                                                <xsl:value-of select="@email"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@status">
+                                            <xsl:attribute name="status">
+                                                <xsl:value-of select="@status"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                    </pfx:BkGuests>
+                                </xsl:for-each>
+                                <xsl:for-each select="pfx:BkServices">
+                                    <pfx:BkServices>
+                                        <xsl:if test="@id">
+                                            <xsl:attribute name="id">
+                                                <xsl:value-of select="@id"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@id_hotel">
+                                            <xsl:attribute name="id_hotel">
+                                                <xsl:value-of select="@id_hotel"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@id_service">
+                                            <xsl:attribute name="id_service">
+                                                <xsl:value-of select="@id_service"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@cost">
+                                            <xsl:attribute name="cost">
+                                                <xsl:value-of select="@cost"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                    </pfx:BkServices>
+                                </xsl:for-each>
+                                <xsl:for-each select="pfx:Bkrooms_hotel">
+                                    <pfx:Bkrooms_hotel>
+                                        <xsl:if test="@id">
+                                            <xsl:attribute name="id">
+                                                <xsl:value-of select="@id"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@id_hotel">
+                                            <xsl:attribute name="id_hotel">
+                                                <xsl:value-of select="@id_hotel"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@id_rooms">
+                                            <xsl:attribute name="id_rooms">
+                                                <xsl:value-of select="@id_rooms"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@room_number">
+                                            <xsl:attribute name="room_number">
+                                                <xsl:value-of select="@room_number"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                        <xsl:if test="@cost">
+                                            <xsl:attribute name="cost">
+                                                <xsl:value-of select="@cost"/>
+                                            </xsl:attribute>
+                                        </xsl:if>
+                                    </pfx:Bkrooms_hotel>
+                                </xsl:for-each>
+                            </pfx:Booking>
+                        </xsl:for-each>
+                    </pfx:Bookings>
+                </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx:Bookings>
+                    <pfx:Booking>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="date">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="check_in_date">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="check_out_date">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="status">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                    </pfx:Booking>
+                </pfx:Bookings>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx:Bookings"/>
+    <pd:endX>1738</pd:endX>
+    <pd:endY>439</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <BookingNumber>
+            <xsd:element name="idBooking" type="xsd:string"/>
+        </BookingNumber>
+    </pd:processVariables>
+    <pd:targetNamespace>http://xmlns.example.com/1569490220166</pd:targetNamespace>
+    <pd:activity name="Error">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>1167</pd:x>
+        <pd:y>641</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Call_GetRoomsHotel">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>387</pd:x>
+        <pd:y>177</pd:y>
+        <config>
+            <processName>/Maiden_Hotels_Project/CoreProcess/RoomsHotel/GetByParam_RoomsHotels.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns:roomsHotels>
+                <ns:roomsHotel>
+                    <xsl:if test="$Start/pfx:Bookings/pfx:Booking[1]/pfx:Bkrooms_hotel[1]/@id_hotel">
+                        <xsl:attribute name="id_hotel">
+                            <xsl:value-of select="$Start/pfx:Bookings/pfx:Booking[1]/pfx:Bkrooms_hotel[1]/@id_hotel"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                    <xsl:if test="$Start/pfx:Bookings/pfx:Booking[1]/pfx:Bkrooms_hotel[1]/@room_number">
+                        <xsl:attribute name="room_number">
+                            <xsl:value-of select="$Start/pfx:Bookings/pfx:Booking[1]/pfx:Bkrooms_hotel[1]/@room_number"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                </ns:roomsHotel>
+            </ns:roomsHotels>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Call_Get_BRoomsHotel_2">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>689</pd:x>
+        <pd:y>197</pd:y>
+        <config>
+            <processName>/Maiden_Hotels_Project/CoreProcess/Bookings/GetByParam_Bookings_rooms.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:BookingsRoomsHotels>
+                <pfx:BookingsRoomsHotel>
+                    <xsl:if test="$Call_GetRoomsHotel/ns:roomsHotels/ns:roomsHotel[1]/@id">
+                        <xsl:attribute name="id_rooms_hotel">
+                            <xsl:value-of select="$Call_GetRoomsHotel/ns:roomsHotels/ns:roomsHotel[1]/@id"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                </pfx:BookingsRoomsHotel>
+            </pfx:BookingsRoomsHotels>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>868</pd:x>
+        <pd:y>63</pd:y>
+        <pd:width>523</pd:width>
+        <pd:height>279</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Call_Get_BRoomsHotel_2/pfx:Bookings/pfx:Booking</pd:over>
+            <pd:iterationElementSlot>idBookings</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Call_GetParam</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>idBooking</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Error_2</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Call_GetParam</pd:from>
+            <pd:to>idBooking</pd:to>
+            <pd:xpathDescription>id not null</pd:xpathDescription>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>xpath</pd:conditionType>
+            <pd:xpath>$Call_GetParam/pfx:Bookings/pfx:Booking[1]/@id!=""</pd:xpath>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Call_GetParam</pd:from>
+            <pd:to>Error_2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Call_GetParam">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>1038</pd:x>
+            <pd:y>155</pd:y>
+            <config>
+                <processName>/Maiden_Hotels_Project/CoreProcess/Bookings/GetByParam.process</processName>
+            </config>
+            <pd:inputBindings>
+                <pfx:Bookings>
+                    <pfx:Booking>
+                        <xsl:if test="$idBookings/pfx:Booking/@id">
+                            <xsl:attribute name="id">
+                                <xsl:value-of select="$idBookings/pfx:Booking/@id"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="$Start/pfx:Bookings/pfx:Booking[1]/@check_in_date">
+                            <xsl:attribute name="check_in_date">
+                                <xsl:value-of select="$Start/pfx:Bookings/pfx:Booking[1]/@check_in_date"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:if test="$Start/pfx:Bookings/pfx:Booking[1]/@check_out_date">
+                            <xsl:attribute name="check_out_date">
+                                <xsl:value-of select="$Start/pfx:Bookings/pfx:Booking[1]/@check_out_date"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                    </pfx:Booking>
+                </pfx:Bookings>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="idBooking">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+            <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+            <pd:x>1230</pd:x>
+            <pd:y>164</pd:y>
+            <config>
+                <variableName>BookingNumber</variableName>
+            </config>
+            <pd:inputBindings>
+                <idBooking>
+                    <xsl:value-of select="$Call_GetParam/pfx:Bookings/pfx:Booking[1]/@id"/>
+                </idBooking>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Error_2">
+            <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+            <pd:resourceType>ae.activities.null</pd:resourceType>
+            <pd:x>1154</pd:x>
+            <pd:y>276</pd:y>
+            <config/>
+            <pd:inputBindings/>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Call_GetBooking">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1557</pd:x>
+        <pd:y>275</pd:y>
+        <config>
+            <processName>/Maiden_Hotels_Project/CoreProcess/Bookings/GetByID_Bookings.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:Bookings>
+                <pfx:Booking>
+                    <xsl:attribute name="id">
+                        <xsl:value-of select="$BookingNumber/idBooking"/>
+                    </xsl:attribute>
+                </pfx:Booking>
+            </pfx:Bookings>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Call_GetRoomsHotel</pd:to>
+        <pd:xpathDescription>roomNumb exists</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/pfx:Bookings/pfx:Booking[1]/pfx:Bkrooms_hotel[1]/@room_number)&gt;0 or string-length($Start/pfx:Bookings/pfx:Booking[1]/pfx:Bkrooms_hotel[1]/@id_hotel)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call_GetRoomsHotel</pd:from>
+        <pd:to>Call_Get_BRoomsHotel_2</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call_Get_BRoomsHotel_2</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call_GetRoomsHotel</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call_Get_BRoomsHotel_2</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Call_GetBooking</pd:to>
+        <pd:xpathDescription>idBooking exists</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($BookingNumber/idBooking)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call_GetBooking</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call_GetBooking</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

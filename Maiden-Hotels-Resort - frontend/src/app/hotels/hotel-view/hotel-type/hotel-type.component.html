@@ -1,0 +1,138 @@
+
+
+<!-- Dealing with problems acessing Backend -->
+<div *ngIf="hotels.length < 1 && !isFetching" class="alert alert-warning">
+    <strong>No hotels found!</strong> Add new hotels using the Create button
+</div>
+<div *ngIf="isFetching && !error" class="alert alert-info">
+    <strong>Loading...</strong>
+</div>
+<div *ngIf="error" class="alert alert-danger">
+    <h3>Error occurred using the webservices!</h3>
+    <strong>{{ error }}</strong><br>
+    Please contact the coding monkeys.
+
+</div>
+<div *ngIf="success" class="alert alert-success">
+      <h3>Success! </h3>
+      <strong>{{ success }}</strong>
+</div>
+
+<!-- LAYOUT -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="card" style="background-color: rgba(255, 255, 255, 0.2);" *ngIf="hotels">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="text-center text-uppercase">Welcome to Maiden Hotels & Resorts</h1>
+    </div>
+  </div>
+  <hr>
+  <div class="carousel slide" data-ride="carousel" id="postsCarousel">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-right mb-4">
+                <a type="button" class="carousel-control-prev" data-slide="prev" href="#postsCarousel" title="go back">PREVIOUS</a>
+                <a type="button" class="carousel-control-next" data-slide="next" href="#postsCarousel" title="more">NEXT</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container p-t-0 m-t-2 carousel-inner">
+        <div class="row row-equal carousel-item active m-t-0">
+            <div class="col-lg-12">
+                <div class="card wider">
+                    <div class="card-img-top card-img-top-250">
+                        <img class="img-fluid w-100" src="../../assets/img/wallpapper.jpg" alt="carousel 1">
+                    </div>
+                    <div  class="card-block p-t-2" *ngIf="type !='all'">
+                        <div class="card-header">
+                            <br>
+                            <h3 style="margin-left: 0.5cm;">{{type}}s</h3>
+                        </div>
+                        <div style="text-align: justify;margin-left: 1cm;margin-right: 1cm;"  class="card-text"><br>Choose one of our {{type}}s
+                        </div>
+                    </div>
+                    <div  class="card-block p-t-2" *ngIf="type =='all'">
+                      <div class="card-header">
+                          <br>
+                          <h3 style="margin-left: 0.5cm;">Choose where you want to stay</h3>
+                      </div>
+                      <div style="text-align: justify;margin-left: 1cm;margin-right: 1cm;"  class="card-text"><br> Here you can search for all our hotels, resorts and hostels
+                      </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-equal carousel-item m-t-0" *ngFor="let hotel of hotels">
+            <div class="col-lg-12">
+                <div class="card wider">
+                    <div class="card-img-top card-img-top-250">
+                        <img class="img-fluid w-100" src="../../{{hotel.imagePath}}" alt="Carousel 2">
+                    </div>
+                    <div class="card-block p-t-2">
+                        <div class="card-header">
+                            <br>
+                            <h3 style="margin-left: 0.5cm;">{{hotel.name}}</h3>
+                        </div>
+                        <div style="text-align: justify;margin-left: 1cm;margin-right: 1cm;"  *ngIf="hotel.classification == 1" class="card-text"><br>Location: {{hotel.location}} - Classification: &#9734;
+                            Type: {{hotel.type}}
+                        </div>
+                        <div style="text-align: justify;margin-left: 1cm;margin-right: 1cm;"  *ngIf="hotel.classification == 2" class="card-text"><br>Location: {{hotel.location}} - Classification: &#9734;&#9734;
+                            Type: {{hotel.type}}
+                        </div>
+                        <div style="text-align: justify;margin-left: 1cm;margin-right: 1cm;"  *ngIf="hotel.classification == 3" class="card-text"><br>Location: {{hotel.location}} - Classification: &#9734;&#9734;&#9734;
+                            Type: {{hotel.type}}
+                        </div>
+                        <div style="text-align: justify;margin-left: 1cm;margin-right: 1cm;"  *ngIf="hotel.classification == 4" class="card-text"><br>Location: {{hotel.location}} - Classification: &#9734;&#9734;&#9734;&#9734;
+                            Type: {{hotel.type}}
+                        </div>
+                        <div style="text-align: justify;margin-left: 1cm;margin-right: 1cm;"  *ngIf="hotel.classification == 5" class="card-text"><br>Location: {{hotel.location}} - Classification: &#9734;&#9734;&#9734;&#9734;&#9734;
+                            Type: {{hotel.type}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="text-center" >Our Hotels</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4" *ngFor="let hotel of hotels">
+          <div class="col-lg-12">
+            <div class="card" style="cursor: pointer" (click)="goToHotel(hotel.id)">
+                <div class="card-img-top card-img-top-250">
+                    <img class="img-fluid w-100 " src="../../{{hotel.imagePath}}" alt="Carousel 2">
+                </div>
+                <div class="card-block p-t-2" style="text-align: center;">
+                    <div class="card-header">
+                        <h3 style="margin-top: 0.5cm;">{{hotel.name}}</h3>
+                    </div>
+                    <div style="margin-top: 0.5cm;" *ngIf="hotel.classification == 1" class="card-text">Location: {{hotel.location}} <p>Classification: &#9734;</p>
+                        Type: {{hotel.type}}
+                    </div>
+                    <div style="margin-top: 0.5cm;" *ngIf="hotel.classification == 2" class="card-text">Location: {{hotel.location}} <p>Classification: &#9734;&#9734;</p>
+                        Type: {{hotel.type}}
+                    </div>
+                    <div style="margin-top: 0.5cm;" *ngIf="hotel.classification == 3" class="card-text">Location: {{hotel.location}} <p>Classification: &#9734;&#9734;&#9734;</p>
+                        Type: {{hotel.type}}
+                    </div>
+                    <div style="margin-top: 0.5cm;" *ngIf="hotel.classification == 4" class="card-text">Location: {{hotel.location}} <p>Classification: &#9734;&#9734;&#9734;&#9734;</p>
+                        Type: {{hotel.type}}
+                    </div>
+                    <div style="margin-top: 0.5cm;" *ngIf="hotel.classification == 5" class="card-text">Location: {{hotel.location}} <p>Classification: &#9734;&#9734;&#9734;&#9734;&#9734;</p>
+                        Type: {{hotel.type}}
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

@@ -1,0 +1,28 @@
+
+<table style="text-align: center;" class="table table-striped" *ngIf="rooms && hotelRooms && hotelRoomsOccupied">
+        <thead>
+          <tr>
+            <th>Room Type</th>
+            <th>Beds</th>
+            <th>Size</th>
+            <th>Cost / per day</th>
+            <th>Room number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr *ngFor="let roomFromHotel of hotelRooms | filterRoomsHotel: hotelRoomsOccupied;" >
+            <td>{{getRoomByIdRoom(roomFromHotel.idRooms).type}}</td>
+            <td>{{getRoomByIdRoom(roomFromHotel.idRooms).beds}}</td>
+            <td>{{getRoomByIdRoom(roomFromHotel.idRooms).size}}</td>
+            <td>{{roomFromHotel.cost}}&euro;</td>
+            <td>{{roomFromHotel.roomNumber}}</td>
+            <td>
+                <div class="btn-group" role="group">
+                    <button *ngIf="!roomHotelSelected" class="btn btn-success" type="button" (click) ="onBookRoom(roomFromHotel.id)"  >Book a room</button>
+                    <button *ngIf="roomHotelSelected" class="btn btn-success" type="button" (click) ="sendOutput(roomFromHotel)"  >Select</button>
+                </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>

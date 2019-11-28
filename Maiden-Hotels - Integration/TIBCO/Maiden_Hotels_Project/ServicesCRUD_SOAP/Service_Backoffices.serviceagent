@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://xmlns.example.com/1570445889051">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://xmlns.example.com/1570445889051" location="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Messages/Backoffices.wsdl"/>
+    <config>
+        <wsdl namespace="http://xmlns.example.com/1570447199841" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Mon Oct 07 12:22:45 BST 2019</serviceChange>
+        <interfaceImpl>
+            <tab>
+                <tabName>PortType_Backoffice</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Messages/Backoffices.wsdl" portType="PortType_Backoffice" ns="http://xmlns.example.com/1570445889051"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="Get_All" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Backoffices/Get_All_Backoffice.process"/>
+                                    <row opName="Get_ByParam" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Backoffices/Get_ByParam_Backoffice.process"/>
+                                    <row opName="Insert" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Backoffices/Insert_Backoffice.process"/>
+                                    <row opName="Delete" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Backoffices/Delete_Backoffice.process"/>
+                                    <row opName="Update" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Backoffices/Update_Backoffice.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="PortType_Backoffice" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/Maiden_Hotels_Project/Connections/HTTP_Backoffice.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Backoffices.serviceagent/PortType_Backoffice</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="Get_All">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Backoffices.serviceagent/PortType_Backoffice/Get_All</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Get_ByParam">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Backoffices.serviceagent/PortType_Backoffice/Get_ByParam</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Insert">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Backoffices.serviceagent/PortType_Backoffice/Insert</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Delete">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Backoffices.serviceagent/PortType_Backoffice/Delete</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Update">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Backoffices.serviceagent/PortType_Backoffice/Update</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

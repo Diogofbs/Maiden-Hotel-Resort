@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Guests.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Guests.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="Guests">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="Guest" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Guest">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="first_name" type="xs:string"/>
+			<xs:attribute name="last_name" type="xs:string"/>
+			<xs:attribute name="date_of_birth" type="xs:string"/>
+			<xs:attribute name="gender" type="xs:string"/>
+			<xs:attribute name="id_number" type="xs:string"/>
+			<xs:attribute name="address" type="xs:string"/>
+			<xs:attribute name="contact_number" type="xs:string"/>
+			<xs:attribute name="email" type="xs:string"/>
+			<xs:attribute name="status" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StatusGuest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SuccessGuest" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SuccessGuest">
+		<xs:complexType>
+			<xs:attribute name="value" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

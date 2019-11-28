@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd"
+	 targetNamespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="ServicesHotels">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ServiceHotel" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ServiceHotel">
+		<xs:complexType>
+			<xs:attribute name="id" type="xs:string"/>
+			<xs:attribute name="id_hotel" type="xs:string"/>
+			<xs:attribute name="id_service" type="xs:string"/>
+			<xs:attribute name="status" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StatusServiceHotel">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="SuccessServiceHotel" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SuccessServiceHotel">
+		<xs:complexType>
+			<xs:attribute name="value" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

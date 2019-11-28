@@ -1,0 +1,88 @@
+<div class="container-fluid text-center" *ngIf="guest && hotels">
+    <div class="row content">
+        <div class="col-sm-12 text-left">
+            <h1 >Booking Search</h1>
+            <hr>
+
+            <div *ngIf="error" class="alert alert-danger">
+                <h3>Error occurred using the webservices!</h3>
+                <strong>{{ error }}</strong><br>
+                Please contact the coding monkeys.
+            </div>
+            <div *ngIf="success" class="alert alert-success">
+                <h3>Success! </h3>
+                <strong>{{ success }}</strong>
+            </div>
+            <div *ngIf="booking && !permission" class="alert alert-danger">
+                <h3>You don't have permission to access this booking</h3>
+                Please enter a valid booking
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <label ><b>Current Date</b></label>
+                    <input  class="form-control" type="date" [(ngModel)]="date">
+                </div>
+                <!--<div class="col-sm-3">
+                        <label ><b>Current Date2</b></label>
+                        <input  class="form-control" type="date" [(ngModel)]="date2">
+                    </div> -->
+
+                <div class="col-sm-3">
+                    <label ><b>Hotel</b></label>
+                    <select  class="form-control" type="text" [(ngModel)]="idHotel">
+                        <option *ngFor="let hotel of hotels" value="{{hotel.id}}">{{hotel.name}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                        <label ><b>Room number</b></label>
+                        <input  class="form-control" type="number" [(ngModel)]="roomNumber">
+                </div>
+                <div class="col-sm-3">
+                        <label ><b>id Booking</b></label>
+                        <input  class="form-control" type="number" [(ngModel)]="idBooking">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                    <div class="col-sm-3">
+                        <button class="btn btn-secondary" type="submit" (click)="select()"  >Search booking</button>
+                    </div>
+
+            </div>
+
+            <hr>
+
+            <table class="table table-striped" style="background-color: rgba(255,255,255,0.8); text-align: center;" *ngIf="booking && permission">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Booking Date</th>
+                    <th>Check-in Date</th>
+                    <th>Check-out Date</th>
+                    <th>Hotel name</th>
+                    <th>Room number</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr (click)="OnSelectedBooking(booking.id)"  style="cursor: pointer">
+                    <td>{{booking.id}}</td>
+                    <td>{{booking.date.substring(0, 10)}}</td>
+                    <td>{{booking.checkInDate.substring(0, 10)}}</td>
+                    <td>{{booking.checkOutDate.substring(0, 10)}}</td>
+                    <td>{{getHotelByIdHotel(booking.bkroomsHotel[0].idHotel).name}}</td>
+                    <td>{{booking.bkroomsHotel[0].roomNumber}}</td>
+                    <td>{{booking.status}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+

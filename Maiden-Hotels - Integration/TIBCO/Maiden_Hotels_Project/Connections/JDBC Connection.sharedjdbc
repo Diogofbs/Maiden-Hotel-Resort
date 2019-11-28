@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>JDBC Connection</name>
+    <resourceType>ae.shared.JDBCSharedResource</resourceType>
+    <config>
+        <driver>com.mysql.jdbc.Driver</driver>
+        <maxConnections>10</maxConnections>
+        <loginTimeout>0</loginTimeout>
+        <connectionType>JDBC</connectionType>
+        <UseSharedJndiConfig>false</UseSharedJndiConfig>
+        <location>jdbc:mysql://%%Config_MaidenHotels/JDBC/Host%%:%%Config_MaidenHotels/JDBC/Port%%/%%Config_MaidenHotels/JDBC/DataBaseName%%</location>
+        <user>%%Config_MaidenHotels/JDBC/Username%%</user>
+        <password>%%Config_MaidenHotels/JDBC/Password%%</password>
+    </config>
+</BWSharedResource>

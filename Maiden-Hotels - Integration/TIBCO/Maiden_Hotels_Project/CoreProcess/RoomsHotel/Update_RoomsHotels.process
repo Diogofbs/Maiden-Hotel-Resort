@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd"/>
+    <pd:name>Maiden_Hotels_Project/CoreProcess/RoomsHotel/Update_RoomsHotels.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:roomsHotels"/>
+    <pd:startX>86</pd:startX>
+    <pd:startY>127</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="$Update/jdbcUpdateActivityOutput/noOfUpdates>0">
+                <pfx2:StatusRoomsHotel>
+                    <pfx2:SuccessRoomsHotel>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="1"/>
+                        </xsl:attribute>
+                    </pfx2:SuccessRoomsHotel>
+                </pfx2:StatusRoomsHotel>
+            </xsl:when>
+            <xsl:when test="$PreviousInfo_rooms_hotel/resultSet/Record">
+                <pfx2:StatusRoomsHotel>
+                    <pfx2:SuccessRoomsHotel>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="0"/>
+                        </xsl:attribute>
+                    </pfx2:SuccessRoomsHotel>
+                </pfx2:StatusRoomsHotel>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx2:StatusRoomsHotel>
+                    <pfx2:SuccessRoomsHotel>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="-1"/>
+                        </xsl:attribute>
+                    </pfx2:SuccessRoomsHotel>
+                </pfx2:StatusRoomsHotel>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx2:StatusRoomsHotel"/>
+    <pd:endX>772</pd:endX>
+    <pd:endY>160</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1568907513150</pd:targetNamespace>
+    <pd:activity name="PreviousInfo_rooms_hotel">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>224</pd:x>
+        <pd:y>271</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>Select * from rooms_hotel WHERE id=?</statement>
+            <jdbcSharedConfig>/Maiden_Hotels_Project/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>id</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>id</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_hotel</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_rooms</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>room_number</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>cost</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>7</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>FLOAT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <id>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id)">
+                            <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </id>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Update">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>385</pd:x>
+        <pd:y>89</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Maiden_Hotels_Project/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>UPDATE rooms_hotel SET id_hotel=?, id_rooms=?,room_number=?,cost=?  WHERE id=?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>id_hotel</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>id_rooms</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>room_number</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>cost</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>id</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:roomsHotels/pfx2:roomsHotel/@id_hotel=&quot;&quot;">
+                        <id_hotel>
+                            <xsl:choose>
+                                <xsl:when test="exists($PreviousInfo_rooms_hotel/resultSet/Record[1]/id_hotel)">
+                                    <xsl:value-of select="$PreviousInfo_rooms_hotel/resultSet/Record[1]/id_hotel"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </id_hotel>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <id_hotel>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id_hotel)">
+                                    <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id_hotel"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </id_hotel>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:roomsHotels/pfx2:roomsHotel/@id_rooms=&quot;&quot;">
+                        <id_rooms>
+                            <xsl:choose>
+                                <xsl:when test="exists($PreviousInfo_rooms_hotel/resultSet/Record[1]/id_rooms)">
+                                    <xsl:value-of select="$PreviousInfo_rooms_hotel/resultSet/Record[1]/id_rooms"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </id_rooms>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <id_rooms>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id_rooms)">
+                                    <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id_rooms"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </id_rooms>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:roomsHotels/pfx2:roomsHotel/@room_number=&quot;&quot;">
+                        <room_number>
+                            <xsl:choose>
+                                <xsl:when test="exists($PreviousInfo_rooms_hotel/resultSet/Record[1]/room_number)">
+                                    <xsl:value-of select="$PreviousInfo_rooms_hotel/resultSet/Record[1]/room_number"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </room_number>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <room_number>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@room_number)">
+                                    <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@room_number"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </room_number>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx2:roomsHotels/pfx2:roomsHotel/@cost=&quot;&quot;">
+                        <cost>
+                            <xsl:choose>
+                                <xsl:when test="exists($PreviousInfo_rooms_hotel/resultSet/Record[1]/cost)">
+                                    <xsl:value-of select="$PreviousInfo_rooms_hotel/resultSet/Record[1]/cost"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </cost>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <cost>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@cost)">
+                                    <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@cost"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </cost>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <id>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id)">
+                            <xsl:value-of select="$Start/pfx2:roomsHotels/pfx2:roomsHotel[1]/@id"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </id>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Error">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>503</pd:x>
+        <pd:y>258</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>PreviousInfo_rooms_hotel</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>PreviousInfo_rooms_hotel</pd:from>
+        <pd:to>Update</pd:to>
+        <pd:xpathDescription>if record</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($PreviousInfo_rooms_hotel/resultSet/Record)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>PreviousInfo_rooms_hotel</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

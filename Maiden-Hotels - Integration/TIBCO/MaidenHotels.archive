@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>diogo.bras.santos</authorProperty>
+        </sharedArchive>
+        <processArchive name="Process Archive">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>diogo.bras.santos</authorProperty>
+            <processProperty>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Backoffices.serviceagent,/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Bookings.serviceagent,/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Clients.serviceagent,/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent,/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Hotels.serviceagent,/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Roles.serviceagent,/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Rooms.serviceagent,/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Rooms_hotel.serviceagent,/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Services.serviceagent,/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Services_hotel.serviceagent</processProperty>
+        </processArchive>
+        <versionProperty>20</versionProperty>
+        <authorProperty>diogo.bras.santos</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>MaidenHotels</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>C:\Users\daniel.costa\Documents\MaidenHotels.ear</fileLocationProperty>
+    </enterpriseArchive>
+</Repository:repository>

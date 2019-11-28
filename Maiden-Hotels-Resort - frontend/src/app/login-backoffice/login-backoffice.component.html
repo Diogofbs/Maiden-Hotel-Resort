@@ -1,0 +1,49 @@
+<div class="card" style="background-color: rgba(255, 255, 255, 0.8);">
+        <div class="container-fluid">
+            <div class="container">
+                <h2 class="text-center text-uppercase" id="title">Maiden Hotels & Spa</h2>
+                 <hr>
+                <!-- <div *ngIf="hotels.length < 1 && !isloggin" class="alert alert-warning">
+                    <strong>No user found!</strong> Contact admin or try again
+                </div>-->
+                <div *ngIf="isloggin && !error" class="alert alert-info">
+                    <strong>Loading...</strong>
+                </div>
+                <div *ngIf="error" class="alert alert-danger">
+                    <h3>Error occurred using the webservices!</h3>
+                    <strong>{{ error }}</strong><br>
+                    Please contact the coding monkeys.
+
+                </div>
+                <div *ngIf="success" class="alert alert-success">
+                    <h3>Success! </h3>
+                    <strong>{{ success }}</strong>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <form role="form" [formGroup] = "loginForm" (ngSubmit)="onLogin()">
+                            <fieldset>
+                                <p class="text-uppercase"> Login using your account: </p>
+
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username" class="form-control input-lg" formControlName="username" placeholder="username">
+                                    <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched"
+                                    class="help-block alert-warning">Please enter a valid username!</span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" class="form-control input-lg" formControlName="password" placeholder="Password">
+                                    <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched"
+                                    class="help-block alert-warning">Please enter a valid password!</span>
+                                </div>
+                                <div>
+                                    <input type="submit"  [disabled]="!loginForm.valid" class="btn btn-info mr-1" value="Sign In">
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

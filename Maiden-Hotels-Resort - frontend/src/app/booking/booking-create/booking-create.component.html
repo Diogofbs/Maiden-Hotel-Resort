@@ -1,0 +1,207 @@
+<br>
+<div class="container-fluid text-center" >
+  <div class="row content">
+    <div class="col-sm-9 text-left">
+      <h1>Booking summary</h1>
+      <br>
+      <p *ngIf="hotel">hotel: {{hotel.name}}, Location: {{hotel.location}} <b>[Selected]</b></p>
+      <hr>
+      <h4>Room selected</h4>
+
+      <table *ngIf="rooms" style="text-align: center;" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Room Type</th>
+            <th>Beds</th>
+            <th>Size</th>
+            <th>Cost / per day</th>
+            <th>Room number</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let room of hotelRooms; index as i;">
+                <td>{{getRoomByIdRoom(room.idRooms).type}}</td>
+                <td>{{getRoomByIdRoom(room.idRooms).beds}}</td>
+                <td>{{getRoomByIdRoom(room.idRooms).size}}</td>
+                <td>{{room.cost}}&euro;</td>
+                <td>{{room.roomNumber}}</td>
+                <td><button class="btn btn-danger" type="button" (click)="removeHotelRooms(i)"  >Remove</button></td>
+          </tr>
+          <tr>
+                <td><button class="btn btn-success" type="button" (click)="openMoreRooms=true"  >Add Rooms</button></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button class="btn btn-danger" type="button" (click)="openMoreRooms=false"  >Close Rooms</button></td>
+
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <app-rooms-hotel *ngIf="openMoreRooms"
+                    [id]="hotel.id" [checkInInput]="checkInDate" [checkOutInput]="checkOutDate" [roomHotelSelected]="hotelRooms"
+                    (idRoomHotel)="receiveRoomHotel($event)"></app-rooms-hotel>
+
+      <h4>Dates</h4>
+      <table style="text-align: center;" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Check-in Date</th>
+            <th>Check-out Date</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{checkInDate}}</td>
+            <td>{{checkOutDate}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br>
+
+        <h4>Guests</h4>
+        <div class="row" style="background-color: rgba(255, 255, 255, 0.6); text-align: center;">
+          <div class="col-md-2">
+            <!-- empty col -->
+          </div>
+          <div class="col-md-2">
+              <label ><b>How many?</b></label>
+          </div>
+          <div class="col-md-2">
+              <input type="number" class="form-control" [(ngModel)]="numberOfGuests">
+          </div>
+          <div class="col-md-2">
+            <!-- empty col -->
+          </div>
+          <div class="col-md-2">
+              <button class="btn btn-success" type="button" (click) ="addForm(numberOfGuests); "  >Add</button>
+          </div>
+        </div>
+        <br>
+
+        <div class="container-fluid" *ngIf="numberG>0">
+
+            <form  [formGroup]="guestsForm" (ngSubmit)="goToPayment()">
+                <div class="row" formArrayName="form">
+                    <div class="row" *ngFor="let guest of getControls(); index as i" [formGroupName]="i">
+                        <div class="col-md-12">
+                            <h4>Guest {{i+1}}</h4>
+                        </div>
+                        <br>
+                        <br>
+                    <div class="col-md-4 form-group">
+                        <label for="insert_firstName"><b>First Name:</b></label>
+                        <input type="text" class="form-control" id="insert_firstName"  formControlName="firstName" name="firstName">
+                        <span *ngIf="!guest.get('firstName').valid && guest.get('firstName').touched"
+                          class="help-block alert-warning">Please enter a valid first name!</span>
+                    </div>
+                    <div class="col-md-2">
+                        <!-- empty -->
+                    </div>
+                    <div class="col-md-4 form-group">
+                      <label for="insert_lastName"><b>Last Name:</b></label>
+                      <input type="text" class="form-control" id="insert_lastName"  formControlName="lastName" name="lastName">
+                      <span *ngIf="!guest.get('lastName').valid && guest.get('lastName').touched"
+                        class="help-block alert-warning">Please enter a valid last name!</span>
+                  </div>
+                  <div class="col-md-4 form-group">
+                    <label for="insert_dateOfBirth"><b>Date of birth:</b>:</label>
+                    <input type="date" class="form-control" id="insert_dateOfBirth"  formControlName="dateOfBirth" name="dateOfBirth">
+                    <span *ngIf="!guest.get('dateOfBirth').valid && guest.get('dateOfBirth').touched"
+                      class="help-block alert-warning">Please enter a date!</span>
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="insert_gender"><b>Select Gender:</b></label><br>
+                      <input type="radio" name="gender" id="insert_gender1" formControlName="gender" value="Male" checked> <b>Male &emsp;</b>
+                      <input type="radio" name="gender" id="insert_gender2" formControlName="gender" value="Female"> <b>Female &emsp;</b>
+                      <input type="radio" name="gender" id="insert_gender3" formControlName="gender" value="Other"><b>Other &emsp;</b>
+                      <span *ngIf="!guest.get('gender').valid && guest.get('gender').touched"
+                      class="help-block alert-warning">Please enter Gender!</span>
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="insert_idNumber"><b>Identification Number:</b></label>
+                      <input type="text" class="form-control" id="insert_idNumber"  formControlName="idNumber" name="idNumber">
+                      <span *ngIf="!guest.get('idNumber').valid && guest.get('idNumber').touched"
+                        class="help-block alert-warning">Please enter a valid Identification Number!</span>
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="insert_address"><b>Address:</b></label>
+                      <input type="text" class="form-control" id="insert_address"  formControlName="address" name="address">
+                      <span *ngIf="!guest.get('address').valid && guest.get('address').touched"
+                        class="help-block alert-warning">Please enter a valid Address!</span>
+                  </div>
+                  <div class="col-md-12 form-group">
+                      <label for="insert_contactNumber"><b>Contact Number:</b></label>
+                      <input type="text" class="form-control" id="insert_contactNumber"  formControlName="contactNumber" name="contactNumber">
+                      <span *ngIf="!guest.get('contactNumber').valid && guest.get('contactNumber').touched"
+                        class="help-block alert-warning">Please enter a valid Contact Number!</span>
+                  </div>
+                  <hr>
+                  <div class="col-md-12 form-group">
+                          <label for="email"><b>Email:</b></label>
+                          <input type="text" class="form-control" id="email"  formControlName="email" name="email">
+                          <span *ngIf="!guest.get('email').valid && guest.get('email').touched"
+                          class="help-block alert-warning">Please enter a valid email!</span>
+                  </div>
+                  <hr>
+                  <br>
+                </div>
+            </div>
+          </form>
+
+          <div>
+                <button class="btn btn-success" [disabled]="!guestsForm.valid" type="submit" (click) ="goToPayment(); "  >Payment</button>
+                <button class="btn btn-secondary" type="button" (click) ="onCancel(); " >Cancel</button>
+                <p>You need to pay 10% price up-front</p>
+
+          </div>
+        </div>
+        <div *ngIf="pay">
+            <h4>Payment selection</h4>
+            <p><b>Total cost: </b> ({{totalCost()}}&euro;), <b>10%: </b> ({{priceToPay}}&euro;)</p>
+            <form [formGroup]="paymentForm" (ngSubmit)="onCreateBooking()">
+                    <div class="form-group">
+                            <label for="insert_bookingCardNumber">Credit Card Number:</label>
+                            <input type="text" class="form-control" id="insert_bookingCardNumber"  formControlName="bookingCardNumber" name="bookingCardNumber">
+                            <span *ngIf="!paymentForm.get('bookingCardNumber').valid && paymentForm.get('bookingCardNumber').touched"
+                              class="help-block alert-warning">Please enter a valid Card Number!</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="insert_bookingCardSecurity">3 Digit Security Number:</label>
+                            <input type="text" class="form-control" id="insert_bookingCardSecurity"  formControlName="bookingCardSecurity" name="bookingCardSecurity">
+                            <span *ngIf="!paymentForm.get('bookingCardSecurity').valid && paymentForm.get('bookingCardSecurity').touched"
+                              class="help-block alert-warning">Please enter a valid Security Number!</span>
+                        </div>
+                        <!--<div class="form-group">
+                                <label for="insert_bookingCardValue">Value:</label>
+                                <input type="number" class="form-control" id="insert_bookingCardValue"  formControlName="bookingCardValue" name="bookingCardValue">
+                                <span *ngIf="!paymentForm.get('bookingCardValue').valid && paymentForm.get('bookingCardValue').touched"
+                                  class="help-block alert-warning">Please enter a valid Number!</span>
+                            </div>-->
+            </form>
+            <button class="btn btn-success" [disabled]="!paymentForm.valid" type="submit" (click) ="onCreateBooking(); "  >Book</button>
+            <button class="btn btn-secondary" type="button" (click) ="onCancel(); "  >Cancel</button>
+        </div>
+
+        <div *ngIf="error" class="alert alert-danger">
+            <h3>Error occurred using the webservices!</h3>
+            <strong>{{ error }}</strong><br>
+            Please contact the coding monkeys.
+
+        </div>
+        <div *ngIf="success" class="alert alert-success">
+            <h3>Success! </h3>
+            <strong>{{ success }}</strong>
+        </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+
+

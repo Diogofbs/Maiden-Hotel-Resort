@@ -1,4 +1,4 @@
-** AIRLINE COMPANY **
+** HOTEL CHAIN COMPANY **
 
 Project: Web application
 Software: Angular (Frontend), Spring (Backend), Java (Backend), TIBCO (Integration), MySQL (DB)

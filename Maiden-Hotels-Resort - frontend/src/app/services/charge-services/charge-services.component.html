@@ -1,0 +1,194 @@
+<div class="container-fluid text-center" *ngIf="employer && hotels">
+    <div class="row content">
+        <div class="col-sm-12 text-left">
+            <h1 >Hotel Services</h1>
+            <hr>
+
+            <div *ngIf="error" class="alert alert-danger">
+                <h3>Error occurred using the webservices!</h3>
+                <strong>{{ error }}</strong><br>
+                Please contact the coding monkeys.
+            </div>
+            <div *ngIf="success" class="alert alert-success">
+                <h3>Success! </h3>
+                <strong>{{ success }}</strong>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <label ><b>Current Date</b></label>
+                    <input  class="form-control" type="date" [(ngModel)]="date">
+                </div>
+                <!--<div class="col-sm-3">
+                        <label ><b>Current Date2</b></label>
+                        <input  class="form-control" type="date" [(ngModel)]="date2">
+                    </div> -->
+
+                <div class="col-sm-3">
+                    <label ><b>Hotel</b></label>
+                    <select  class="form-control" type="text" [(ngModel)]="idHotel">
+                        <option *ngFor="let hotel of hotels" value="{{hotel.id}}">{{hotel.name}}</option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                        <label ><b>Room number</b></label>
+                        <input  class="form-control" type="number" [(ngModel)]="roomNumber">
+                </div>
+                <div class="col-sm-3">
+                        <label ><b>id Booking</b></label>
+                        <input  class="form-control" type="number" [(ngModel)]="idBooking">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                    <div class="col-sm-3">
+                        <button class="btn btn-secondary" type="submit" (click)="select()"  >Search booking</button>
+                    </div>
+                    <div class="col-sm-3">
+                            <button class="btn btn-danger" type="button" (click)="onRefresh()"  >Refresh List</button>
+                    </div>
+
+            </div>
+
+            <hr>
+            <div *ngIf="booking">
+
+            <h3>Important information</h3>
+            <div class="row" style="background-color: rgba(219, 196, 66, 0.6); text-align: center;">
+                <table style="text-align: center;" class="table table-striped" >
+                    <thead>
+                      <tr>
+                        <th>id Booking</th>
+                        <th>hotel Name</th>
+                        <th>Room number</th>
+                        <th>Check-in-date</th>
+                        <th>Check-out-date</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr >
+                        <td><b>{{booking.id}}</b></td>
+                        <td>{{getHotelByIdHotel(booking.bkroomsHotel[0].idHotel).name}}</td>
+                        <td><b>{{booking.bkroomsHotel[0].roomNumber}}</b></td>
+                        <td>{{booking.checkInDate}}</td>
+                        <td>{{booking.checkOutDate}}</td>
+                        <td><b>{{booking.status}}</b></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p *ngIf="booking.status == 'inactive' || booking.status == 'Inactive'"><b>(Guests have already done check-out)</b></p>
+            </div>
+            <hr>
+
+        <div *ngIf="booking.status != 'inactive' && booking.status != 'Inactive'">
+
+        <h3>Guests</h3>
+        <p></p>
+        <div class="row" style="background-color: rgba(255, 255, 255, 0.6); text-align: center;">
+            <table style="text-align: center;" class="table table-striped" *ngIf="booking">
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Id number</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let guest of booking.bkGuests " >
+                    <td>{{guest.firstName}}</td>
+                    <td>{{guest.lastName}}</td>
+                    <td>{{guest.dateOfBirth.substring(0, 10)}}</td>
+                    <td>{{guest.idNumber}}</td>
+                    <td>{{guest.address}}</td>
+                    <td>{{guest.email}}</td>
+                    <td>{{guest.contactNumber}}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+
+        <hr>
+        <div>
+            <h3>Services</h3>
+            <p></p>
+            <div *ngIf="booking.bkServices.length>0">
+                <table style="background-color: rgba(255, 255, 255, 0.8); text-align: center;" class="table table-striped" *ngIf="services">
+                    <thead>
+                        <tr>
+                          <th>Service</th>
+                          <th *ngIf="booking.status!= 'inactive' && booking.status != 'Inactive'">Cost</th>
+                          <th *ngIf="booking.status == 'inactive' || booking.status == 'Inactive'">Paid</th>
+                          <th>Actions</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let service of booking.bkServices;" >
+                        <td>{{getServiceByIdService(service.idService).name}}</td>
+                        <td>{{service.cost}}&euro;</td>
+                        <td><button class="btn btn-danger" type="button" (click)="deleteServiceToBooking(service.id)"  >Delete</button></td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-3">
+                    <button class="btn btn-primary"  [disabled]="booking.status == 'inactive' || booking.status == 'Inactive' || booking.status == 'booked' || booking.status == 'Booked'" type="button" data-toggle="modal" data-target="#new_serviceModal" >Add Service</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Insert-->
+<div class="modal fade" id="new_serviceModal" tabindex="2" role="dialog" aria-labelledby="new_serviceModalLabel" aria-hidden="true" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <form [formGroup] = "insertForm" (ngSubmit)="addServiceToBooking()">
+            <div class="modal-header">
+                <h5 class="modal-title" id="new_serviceModalLabel" >Add Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="serviceId">Service Name:</label>
+                <select  class="form-control" type="text"  id="insert_serviceId"  formControlName="serviceId" name="serviceId">
+                        <option *ngFor="let service of hotelServices" value="{{service.id}}">{{getServiceByIdService(service.idService).name}}</option>
+                </select>
+                <span *ngIf="!insertForm.get('serviceId').valid && insertForm.get('serviceId').touched"
+                  class="help-block alert-warning">Please enter a valid service!</span>
+              </div>
+
+                <div class="form-group">
+                    <label for="cost">Service Cost:</label>
+                    <input type="text" class="form-control" id="insert_cost"  formControlName="cost" name="cost">
+                    <span *ngIf="!insertForm.get('cost').valid && insertForm.get('cost').touched"
+                      class="help-block alert-warning">Please enter a valid cost!</span>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success" [disabled]="!insertForm.valid" onclick="$('#new_serviceModal').modal('hide')">Confirm</button>
+            </div>
+            </form>
+            </div>
+        </div>
+        </div>

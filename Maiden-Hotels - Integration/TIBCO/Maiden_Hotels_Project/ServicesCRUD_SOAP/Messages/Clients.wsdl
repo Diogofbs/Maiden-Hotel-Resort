@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Clients.xsd" xmlns:tns="http://xmlns.example.com/1569338207235" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.example.com/1569338207235">
+    <import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Clients.xsd" location="../../Schemas/Clients.xsd"/>
+    <message name="in_Get_All"/>
+    <message name="out_Get_All">
+        <part name="Clients" element="ns:Clients"/>
+    </message>
+    <message name="in_Get_ByParam">
+        <part name="Clients" element="ns:Clients"/>
+    </message>
+    <message name="out_Get_ByParam">
+        <part name="Clients" element="ns:Clients"/>
+    </message>
+    <message name="in_Insert">
+        <part name="Clients" element="ns:Clients"/>
+    </message>
+    <message name="out_Insert">
+        <part name="Status" element="ns:StatusClient"/>
+    </message>
+    <message name="in_Delete">
+        <part name="Clients" element="ns:Clients"/>
+    </message>
+    <message name="out_Delete">
+        <part name="Status" element="ns:StatusClient"/>
+    </message>
+    <message name="in_Update">
+        <part name="Clients" element="ns:Clients"/>
+    </message>
+    <message name="out_Update">
+        <part name="Status" element="ns:StatusClient"/>
+    </message>
+    <portType name="PortType_Clients">
+        <operation name="Get_All">
+            <input message="tns:in_Get_All"/>
+            <output message="tns:out_Get_All"/>
+        </operation>
+        <operation name="Get_ByParam">
+            <input message="tns:in_Get_ByParam"/>
+            <output message="tns:out_Get_ByParam"/>
+        </operation>
+        <operation name="Insert">
+            <input message="tns:in_Insert"/>
+            <output message="tns:out_Insert"/>
+        </operation>
+        <operation name="Delete">
+            <input message="tns:in_Delete"/>
+            <output message="tns:out_Delete"/>
+        </operation>
+        <operation name="Update">
+            <input message="tns:in_Update"/>
+            <output message="tns:out_Update"/>
+        </operation>
+    </portType>
+</definitions>

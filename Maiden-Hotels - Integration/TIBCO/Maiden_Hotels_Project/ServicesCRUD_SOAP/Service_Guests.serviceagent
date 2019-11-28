@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://xmlns.example.com/1569329990745">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://xmlns.example.com/1569329990745" location="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Messages/Guests.wsdl"/>
+    <config>
+        <wsdl namespace="http://xmlns.example.com/1569335583321" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Tue Sep 24 15:34:51 BST 2019</serviceChange>
+        <interfaceImpl>
+            <tab>
+                <tabName>PortType_Guests</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Messages/Guests.wsdl" portType="PortType_Guests" ns="http://xmlns.example.com/1569329990745"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="Get_All" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Guests/Get_All_Guest.process"/>
+                                    <row opName="Get_ByParam" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Guests/Get_ByParam_Guest.process"/>
+                                    <row opName="Insert" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Guests/Insert_Guest.process"/>
+                                    <row opName="Delete" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Guests/Delete_Guest.process"/>
+                                    <row opName="Update" opImpl="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Guests/Update_Guest.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="PortType_Guests" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/Maiden_Hotels_Project/Connections/HTTP_Guests.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>document</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="Get_All">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests/Get_All</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Get_ByParam">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests/Get_ByParam</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Insert">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests/Insert</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Delete">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests/Delete</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="Update">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Maiden_Hotels_Project/ServicesCRUD_SOAP/Service_Guests.serviceagent/PortType_Guests/Update</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

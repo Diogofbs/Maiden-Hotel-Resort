@@ -1,0 +1,139 @@
+
+<div *ngIf="employer && employer.idRole == 1"  class="card" style="background-color: rgba(255, 255, 255, 0.8);">
+    <h2 class="text-uppercase">List of users</h2>
+      <p>List of the employers who can access the system</p>
+      <hr>
+      <div class="row">
+          <div class="col-lg-12">
+              <button type="button" class="btn btn-info text-center mr-1 col-2 float-right" data-toggle="modal" data-target="#new_backofficeModal" >Create New user</button>
+              <button type="button" class="btn btn-info text-center mr-1 col-2 float-right" data-toggle="modal" data-target="#new_roleModal" >Create New role</button>
+              <button type="button" class="btn btn-success text-center mr-1 col-2 float-right" (click) = "onRefresh();">Refresh List</button>
+              </div>
+    </div>
+      <hr>
+
+
+  <div *ngIf="backoffices.length < 1 && !isFetching" class="alert alert-warning">
+    <strong>No hotels found!</strong> Add new hotels using the Create button
+  </div>
+  <div *ngIf="isFetching && !error" class="alert alert-info">
+    <strong>Loading...</strong>
+  </div>
+  <div *ngIf="error" class="alert alert-danger">
+    <h3>Error occurred using the webservices!</h3>
+    <strong>{{ error }}</strong><br>
+    Please contact the coding monkeys.
+
+  </div>
+  <div *ngIf="success" class="alert alert-success">
+      <h3>Success! </h3>
+      <strong>{{ success }}</strong>
+    </div>
+
+    <table class="table table-striped" style="text-align: center;" *ngIf="backoffices && roles">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employer of backoffices; index as i;">
+            <td>{{employer.name}}</td>
+            <td>{{employer.username}}</td>
+            <td>{{getRoleByIdRole(employer.idRole)?.name}}</td>
+            <td>
+                <div class="btn-group" role="group">
+                <!--<button class="btn btn-secondary" type="button" >Update</button>
+                <button class="btn btn-success" type="button" >B</button>
+                <button class="btn btn-success" type="button" >C</button>-->
+                <button class="btn btn-danger"  type="button" (click)="DeleteBackoffice(employer.id)" >Delete</button>
+                </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+  <!-- Modal Insert Backoffice-->
+<div class="modal fade" id="new_backofficeModal" tabindex="1" role="dialog" aria-labelledby="new_backofficeModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <form [formGroup] = "insertForm" (ngSubmit)="createBackoffice()">
+        <div class="modal-header">
+            <h5 class="modal-title" id="new_backofficeModalLabel" >Create New User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="backofficeName">Name of the employee:</label>
+            <input type="text" class="form-control" id="insert_name"  formControlName="name" name="name">
+            <span *ngIf="!insertForm.get('name').valid && insertForm.get('name').touched"
+              class="help-block alert-warning">Please enter a valid name!</span>
+          </div>
+          <div class="form-group">
+            <label for="backofficeUsername">Username:</label>
+            <input type="text" class="form-control" id="insert_username"  formControlName="username" name="username">
+            <span *ngIf="!insertForm.get('username').valid && insertForm.get('username').touched"
+              class="help-block alert-warning">Please enter a valid username!</span>
+          </div>
+          <div class="form-group">
+            <label for="backofficePassword">Password:</label>
+            <input type="password" class="form-control" id="insert_password"  formControlName="password" name="password">
+            <span *ngIf="!insertForm.get('password').valid && insertForm.get('password').touched"
+              class="help-block alert-warning">Please enter a valid Password!</span>
+          </div>
+
+          <div class="form-group">
+            <label for="backofficeRole">Select Role:</label>
+            <select class="form-control" id="insert_idRole"  formControlName="idRole" name="idRole" >
+                <option *ngFor ="let role of roles" [value] = "role.id">{{role.name}}</option>
+
+            </select>
+            <span *ngIf="!insertForm.get('idRole').valid && insertForm.get('idRole').touched"
+              class="help-block alert-warning">Please enter a valid Role!</span>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="!insertForm.valid" onclick="$('#new_backofficeModal').modal('hide')">Create user</button>
+        </div>
+        </form>
+        </div>
+    </div>
+  </div>
+
+  <!-- Modal Insert Role-->
+  <div class="modal fade" id="new_roleModal" tabindex="2" role="dialog" aria-labelledby="new_roleModalLabel" aria-hidden="true" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form [formGroup] = "roleForm" (ngSubmit)="createRole()">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="new_roleModalLabel" >Create New Role</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="roleName">Name of the role:</label>
+                            <input type="text" class="form-control" id="insert_Rolename"  formControlName="Rolename" name="Rolename">
+                            <span *ngIf="!roleForm.get('Rolename').valid && roleForm.get('Rolename').touched"
+                            class="help-block alert-warning">Please enter a valid name!</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="!roleForm.valid" onclick="$('#new_roleModal').modal('hide')">Create user</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+

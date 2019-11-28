@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Schema.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Services.xsd" xmlns:pfx3="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Schema.xsd2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Services.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/Services.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Schema.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/Roles.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Schema.xsd2" schemaLocation="/Maiden_Hotels_Project/Schemas/Backoffices.xsd"/>
+    <pd:name>Maiden_Hotels_Project/CoreProcess/Backoffices/Update_Backoffices.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx3:Backoffices"/>
+    <pd:startX>73</pd:startX>
+    <pd:startY>239</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="not(exists($PreviousInfo_service/resultSet))">
+                <pfx3:StatusBackoffice>
+                    <pfx3:SuccessBackoffice>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="0"/>
+                        </xsl:attribute>
+                    </pfx3:SuccessBackoffice>
+                </pfx3:StatusBackoffice>
+            </xsl:when>
+            <xsl:when test="not(exists($Update/jdbcUpdateActivityOutput/noOfUpdates)) and $PreviousInfo_service/resultSet">
+                <pfx3:StatusBackoffice>
+                    <pfx3:SuccessBackoffice>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="-1"/>
+                        </xsl:attribute>
+                    </pfx3:SuccessBackoffice>
+                </pfx3:StatusBackoffice>
+            </xsl:when>
+            <xsl:when test="$Update/jdbcUpdateActivityOutput/noOfUpdates>0">
+                <pfx3:StatusBackoffice>
+                    <pfx3:SuccessBackoffice>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="1"/>
+                        </xsl:attribute>
+                    </pfx3:SuccessBackoffice>
+                </pfx3:StatusBackoffice>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx3:StatusBackoffice>
+                    <pfx3:SuccessBackoffice>
+                        <xsl:attribute name="value">
+                            <xsl:value-of select="-2"/>
+                        </xsl:attribute>
+                    </pfx3:SuccessBackoffice>
+                </pfx3:StatusBackoffice>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx3:StatusBackoffice"/>
+    <pd:endX>863</pd:endX>
+    <pd:endY>111</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1568823704641</pd:targetNamespace>
+    <pd:activity name="PreviousInfo_service">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>418</pd:x>
+        <pd:y>94</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>Select * from backoffice WHERE id=?</statement>
+            <jdbcSharedConfig>/Maiden_Hotels_Project/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>id</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>id</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>name</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>username</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>password</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>VARCHAR</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_role</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <id>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx3:Backoffices/pfx3:Backoffice[1]/@id)">
+                            <xsl:value-of select="$Start/pfx3:Backoffices/pfx3:Backoffice[1]/@id"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </id>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Update">
+        <pd:type>com.tibco.plugin.jdbc.JDBCUpdateActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCUpdateActivity</pd:resourceType>
+        <pd:x>655</pd:x>
+        <pd:y>54</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Maiden_Hotels_Project/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>UPDATE backoffice SET name=?, username=?, password=?,id_role=? WHERE id=?</statement>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>name</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>username</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>password</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>idRole</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+                <parameter>
+                    <parameterName>id</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+        </config>
+        <pd:inputBindings>
+            <jdbcUpdateActivityInput>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx3:Backoffices/pfx3:Backoffice[1]/@name=&quot;&quot;">
+                        <name>
+                            <xsl:choose>
+                                <xsl:when test="exists($PreviousInfo_service/resultSet/Record[1]/name)">
+                                    <xsl:value-of select="$PreviousInfo_service/resultSet/Record[1]/name"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </name>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <name>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx3:Backoffices/pfx3:Backoffice[1]/@name)">
+                                    <xsl:value-of select="$Start/pfx3:Backoffices/pfx3:Backoffice[1]/@name"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </name>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx3:Backoffices/pfx3:Backoffice[1]/@username=&quot;&quot;">
+                        <username>
+                            <xsl:choose>
+                                <xsl:when test="exists($PreviousInfo_service/resultSet/Record[1]/username)">
+                                    <xsl:value-of select="$PreviousInfo_service/resultSet/Record[1]/username"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </username>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <username>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx3:Backoffices/pfx3:Backoffice[1]/@username)">
+                                    <xsl:value-of select="$Start/pfx3:Backoffices/pfx3:Backoffice[1]/@username"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </username>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx3:Backoffices/pfx3:Backoffice[1]/@password=&quot;&quot;">
+                        <password>
+                            <xsl:choose>
+                                <xsl:when test="exists($PreviousInfo_service/resultSet/Record[1]/password)">
+                                    <xsl:value-of select="$PreviousInfo_service/resultSet/Record[1]/password"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </password>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <password>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx3:Backoffices/pfx3:Backoffice[1]/@password)">
+                                    <xsl:value-of select="$Start/pfx3:Backoffices/pfx3:Backoffice[1]/@password"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </password>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:choose>
+                    <xsl:when test="$Start/pfx3:Backoffices/pfx3:Backoffice[1]/@idRole =&quot;&quot;">
+                        <idRole>
+                            <xsl:choose>
+                                <xsl:when test="exists($PreviousInfo_service/resultSet/Record[1]/id_role)">
+                                    <xsl:value-of select="$PreviousInfo_service/resultSet/Record[1]/id_role"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </idRole>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <idRole>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/pfx3:Backoffices/pfx3:Backoffice[1]/@idRole)">
+                                    <xsl:value-of select="$Start/pfx3:Backoffices/pfx3:Backoffice[1]/@idRole"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </idRole>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <id>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx3:Backoffices/pfx3:Backoffice[1]/@id)">
+                            <xsl:value-of select="$Start/pfx3:Backoffices/pfx3:Backoffice[1]/@id"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </id>
+            </jdbcUpdateActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Error">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>679</pd:x>
+        <pd:y>239</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>PreviousInfo_service</pd:to>
+        <pd:xpathDescription>name/id !=""</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Start/pfx3:Backoffices/pfx3:Backoffice/@id!=""</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>PreviousInfo_service</pd:from>
+        <pd:to>Update</pd:to>
+        <pd:xpathDescription>success</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$PreviousInfo_service/resultSet/Record</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>PreviousInfo_service</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Update</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

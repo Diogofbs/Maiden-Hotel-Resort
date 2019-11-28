@@ -1,0 +1,218 @@
+<br>
+<div class="container-fluid text-center" *ngIf="booking && hotel">
+    <div class="row content">
+      <div class="col-sm-10 text-left">
+        <h1 >Reservation info</h1>
+        <hr>
+        <div *ngIf="error" class="alert alert-danger">
+                <h3>Error occurred using the webservices!</h3>
+                <strong>{{ error }}</strong><br>
+                Please contact the coding monkeys.
+              </div>
+              <div *ngIf="success" class="alert alert-success">
+                  <h3>Success! </h3>
+                  <strong>{{ success }}</strong>
+                </div>
+        <h3>Important information</h3>
+        <br>
+        <div class="row" style="background-color: rgba(219, 196, 66, 0.6); text-align: center;">
+            <table style="text-align: center;" class="table table-striped" >
+                <thead>
+                  <tr>
+                    <th>id Booking</th>
+                    <th>hotel Name</th>
+                    <th>Room number</th>
+                    <th>Check-in-date</th>
+                    <th>Check-out-date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr >
+                    <td><b>{{booking.id}}</b></td>
+                    <td>{{hotel.name}}</td>
+                    <td><b>{{booking.bkroomsHotel[0].roomNumber}}</b></td>
+                    <td>{{booking.checkInDate}}</td>
+                    <td>{{booking.checkOutDate}}</td>
+                    <td><b>{{booking.status}}</b></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <hr>
+
+        <h3>Costs</h3>
+        <br>
+        <div class="row" style="background-color: rgba(219, 196, 66, 0.6); text-align: center;">
+            <table style="text-align: center;" class="table table-striped" *ngIf="booking" >
+                <thead>
+                  <tr>
+                    <th>Total cost</th>
+                    <th>Rooms cost</th>
+                    <th>Services cost</th>
+                    <th>paid</th>
+                    <th *ngIf="booking.status!= 'inactive'">to pay</th>
+
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr >
+                    <td><b>{{(totalServiceCost() + totalRoomCost())}}&euro;</b></td>
+                    <td>{{totalRoomCost()}}&euro;</td>
+                    <td>{{totalServiceCost()}}&euro;</td>
+                    <td *ngIf="booking.status!= 'inactive'">{{round(totalRoomCost() * 0.1)}}&euro;</td>
+                    <td *ngIf="booking.status == 'inactive'"><b>{{(totalServiceCost() + totalRoomCost())}}&euro;</b></td>
+                    <td *ngIf="booking.status!= 'inactive'"><b>{{(totalServiceCost() + totalRoomCost())- round(totalRoomCost() * 0.1)}}&euro;</b></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <hr>
+
+        <h3>{{hotel.name}}</h3>
+        <br>
+        <div class="card-img-top card-img-top-250">
+            <img class="img-fluid w-100" src="../../{{hotel.imagePath}}" alt="carousel 1">
+        </div>
+        <br>
+        <div class="row" style="background-color: rgba(255, 255, 255, 0.6); text-align: center;">
+            <table style="text-align: center;" class="table table-striped" >
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Location</th>
+                    <th>Classification</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr >
+                    <td>{{hotel.name}}</td>
+                    <td>{{hotel.type}}</td>
+                    <td>{{hotel.location}}</td>
+                    <td *ngIf="hotel.classification == 1">&#9734;</td>
+                    <td *ngIf="hotel.classification == 2">&#9734;&#9734;</td>
+                    <td *ngIf="hotel.classification == 3">&#9734;&#9734;&#9734;</td>
+                    <td *ngIf="hotel.classification == 4">&#9734;&#9734;&#9734;&#9734;</td>
+                    <td *ngIf="hotel.classification == 5">&#9734;&#9734;&#9734;&#9734;&#9734;</td>
+                  </tr>
+                </tbody>
+              </table>
+
+        </div>
+        <br>
+        <p></p>
+        <hr>
+        <h3>Dates</h3>
+        <table style="background-color: rgba(255, 255, 255, 0.8); text-align: center;" class="table table-striped">
+          <thead>
+            <tr>
+                <th>Booking Date</th>
+                <th>Check-in Date</th>
+                <th>Check-out Date</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td>{{booking.date}}</td>
+                <td>{{booking.checkInDate}}</td>
+                <td>{{booking.checkOutDate}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="booking.bkServices.length>0">
+        <h3>Services</h3>
+        <p>Services used</p>
+        <table style="background-color: rgba(255, 255, 255, 0.8); text-align: center;" class="table table-striped" *ngIf="services">
+            <thead>
+                <tr>
+                  <th>Service</th>
+                  <th *ngIf="booking.status!= 'inactive'">Cost</th>
+                  <th *ngIf="booking.status == 'inactive'">Paid</th>
+
+                </tr>
+              </thead>
+            <tbody>
+              <tr *ngFor="let service of booking.bkServices;" >
+                <td>{{getServiceByIdService(service.idService).name}}</td>
+                <td>{{service.cost}}&euro;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <hr>
+        <h3>Rooms</h3>
+        <p></p>
+        <div class="row" style="background-color: rgba(255, 255, 255, 0.6); text-align: center;">
+            <table style="text-align: center;" class="table table-striped" *ngIf="rooms">
+                <thead>
+                  <tr>
+                    <th>Room Type</th>
+                    <th>Beds</th>
+                    <th>Size</th>
+                    <th>Cost / per day</th>
+                    <th *ngIf="booking.status!= 'inactive'">Total Cost</th>
+                    <th>Paid</th>
+                    <th>Room number</th>
+
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let roomFromHotel of booking.bkroomsHotel " >
+                    <td>{{getRoomByIdRoom(roomFromHotel.idRooms).type}}</td>
+                    <td>{{getRoomByIdRoom(roomFromHotel.idRooms).beds}}</td>
+                    <td>{{getRoomByIdRoom(roomFromHotel.idRooms).size}}</td>
+                    <td>{{roomFromHotel.cost}}&euro;</td>
+                    <td *ngIf="booking.status!= 'inactive'">{{roomFromHotel.cost*numberOfDays}}&euro;</td>
+                    <td *ngIf="booking.status!= 'inactive'">{{round(roomFromHotel.cost*0.1*numberOfDays)}}&euro; (10%)</td>
+                    <td *ngIf="booking.status == 'inactive'">{{roomFromHotel.cost*numberOfDays}}&euro;</td>
+                    <td>{{roomFromHotel.roomNumber}}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+
+        </div>
+        <hr>
+        <h3>Guests</h3>
+        <p>Your information</p>
+        <div class="row" style="background-color: rgba(255, 255, 255, 0.6); text-align: center;">
+            <table style="text-align: center;" class="table table-striped" *ngIf="booking">
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Id number</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let guest of booking.bkGuests " >
+                    <td>{{guest.firstName}}</td>
+                    <td>{{guest.lastName}}</td>
+                    <td>{{guest.dateOfBirth.substring(0, 10)}}</td>
+                    <td>{{guest.idNumber}}</td>
+                    <td>{{guest.address}}</td>
+                    <td>{{guest.email}}</td>
+                    <td>{{guest.contactNumber}}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+
+        </div>
+      </div>
+     <div class="col-sm-2 text-center" *ngIf="employer">
+        <br><br><br><br>
+          <p>  <button class="btn btn-primary" [disabled]="booking.status == 'inactive' || booking.status == 'Inactive' || booking.status == 'active' || booking.status == 'Active'" type="button" (click)="OnCheckIn()"  >Check-in</button></p>
+          <p>  <button class="btn btn-primary" [disabled]="booking.status == 'inactive' || booking.status == 'Inactive' || booking.status == 'booked' || booking.status == 'Booked'" type="button" (click)="OnCheckOut()"  >Check-out</button></p>
+          <p>  <button class="btn btn-secondary" [disabled]="booking.status == 'inactive' || booking.status == 'Inactive' || booking.status == 'booked' || booking.status == 'Booked'" type="button" (click)="chargeService()" >Services</button></p>
+          <p  *ngIf="employer.idRole == 1">  <button class="btn btn-danger" type="button" (click)="OnDeleteBooking()">Delete</button></p>
+        </div>
+    </div>
+  </div>

@@ -1,0 +1,104 @@
+CREATE TABLE `bookings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `datedate` datetime NOT NULL,
+  `check_in_date` date NOT NULL,
+  `check_out_date` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `guests` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `gender` varchar(100) NOT NULL,
+  `Id_Number` int(11) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `contact_number` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `client_un` (`Id_Number`),
+  UNIQUE KEY `client_un1` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `hotel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `location` varchar(100) NOT NULL,
+  `classification` varchar(100) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `rooms` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `beds` int(11) NOT NULL,
+  `divisions` int(11) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `size` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `services` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `rooms_hotel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_hotel` int(11) NOT NULL,
+  `id_rooms` int(11) NOT NULL,
+  `room_number` int(11) NOT NULL,
+  `cost` float NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `rooms_hotel_un` (`id_hotel`,`room_number`),
+  KEY `rooms_hotel_fk_1` (`id_rooms`),
+  CONSTRAINT `rooms_hotel_fk` FOREIGN KEY (`id_hotel`) REFERENCES `hotel` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `rooms_hotel_fk_1` FOREIGN KEY (`id_rooms`) REFERENCES `rooms` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `services_hotel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_hotel` int(11) NOT NULL,
+  `id_service` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `services_hotel_fk` (`id_hotel`),
+  KEY `services_hotel_fk_1` (`id_service`),
+  CONSTRAINT `services_hotel_fk` FOREIGN KEY (`id_hotel`) REFERENCES `hotel` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `services_hotel_fk_1` FOREIGN KEY (`id_service`) REFERENCES `services` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `bookings_rooms_hotel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_booking` int(11) NOT NULL,
+  `id_rooms_hotel` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bookings_rooms_hotel_fk` (`id_booking`),
+  KEY `bookings_rooms_hotel_fk_1` (`id_rooms_hotel`),
+  CONSTRAINT `bookings_rooms_hotel_fk` FOREIGN KEY (`id_booking`) REFERENCES `bookings` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `bookings_rooms_hotel_fk_1` FOREIGN KEY (`id_rooms_hotel`) REFERENCES `rooms_hotel` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `bookings_services` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_booking` int(11) NOT NULL,
+  `id_services_hotel` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bookings_services_fk` (`id_booking`),
+  KEY `bookings_services_fk_1` (`id_services_hotel`),
+  CONSTRAINT `bookings_services_fk` FOREIGN KEY (`id_booking`) REFERENCES `bookings` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `bookings_services_fk_1` FOREIGN KEY (`id_services_hotel`) REFERENCES `services_hotel` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `bookings_guest` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_booking` int(11) NOT NULL,
+  `id_guest` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bookings_guest_fk` (`id_booking`),
+  KEY `bookings_guest_fk_1` (`id_guest`),
+  CONSTRAINT `bookings_guest_fk` FOREIGN KEY (`id_booking`) REFERENCES `bookings` (`id`),
+  CONSTRAINT `bookings_guest_fk_1` FOREIGN KEY (`id_guest`) REFERENCES `guests` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `guest_client` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_guest` int(11) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `money_spent` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `guest_client_fk` (`id_guest`),
+  CONSTRAINT `guest_client_fk` FOREIGN KEY (`id_guest`) REFERENCES `guests` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

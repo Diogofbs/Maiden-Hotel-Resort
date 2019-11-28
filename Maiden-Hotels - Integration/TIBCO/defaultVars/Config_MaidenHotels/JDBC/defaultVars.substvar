@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>DataBaseName</name>
+			<value>maiden-hotels-resorts?useTimezone=true&amp;serverTimezone=GMT</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1568730477889</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Host</name>
+			<value>192.168.0.77</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1570178853166</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Password</name>
+			<value>#!m3ngoiV3nQMvmEUNSLl8xYgyRYjd4EPH</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Password</type>
+			<modTime>1568731195488</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Port</name>
+			<value>3310</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1568730171451</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Username</name>
+			<value>daniel</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1570180179795</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

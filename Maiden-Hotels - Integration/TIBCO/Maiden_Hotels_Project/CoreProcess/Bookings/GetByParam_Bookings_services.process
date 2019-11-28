@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd" xmlns:pfx3="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Guests.xsd" xmlns:ns="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Services.xsd" xmlns:pfx4="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Clients.xsd" xmlns:pfx5="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Bookings.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/ServiceHotel.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/RoomsHotel.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Clients.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/Clients.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Guests.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/Guests.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Bookings.xsd" schemaLocation="/Maiden_Hotels_Project/Schemas/Bookings.xsd"/>
+    <pd:name>Maiden_Hotels_Project/CoreProcess/Bookings/GetByParam_Bookings_services.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx5:BookingsServices"/>
+    <pd:startX>143</pd:startX>
+    <pd:startY>205</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="$Get_ById/resultSet/Record">
+                <pfx5:Bookings>
+                    <pfx5:Booking>
+                        <xsl:if test="$Get_ById/resultSet/Record[1]/id_booking">
+                            <xsl:attribute name="id">
+                                <xsl:value-of select="$Get_ById/resultSet/Record[1]/id_booking"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <pfx5:BkServices>
+                            <xsl:if test="$Call_ServicesHotel/pfx:ServicesHotels/pfx:ServiceHotel[1]/@id_hotel">
+                                <xsl:attribute name="id_hotel">
+                                    <xsl:value-of select="$Call_ServicesHotel/pfx:ServicesHotels/pfx:ServiceHotel[1]/@id_hotel"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:if test="$Call_ServicesHotel/pfx:ServicesHotels/pfx:ServiceHotel[1]/@id_service">
+                                <xsl:attribute name="id_service">
+                                    <xsl:value-of select="$Call_ServicesHotel/pfx:ServicesHotels/pfx:ServiceHotel[1]/@id_service"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:if test="$Get_ById/resultSet/Record[1]/cost">
+                                <xsl:attribute name="cost">
+                                    <xsl:value-of select="$Get_ById/resultSet/Record[1]/cost"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                            <xsl:if test="$Call_ServicesHotel/pfx:ServicesHotels/pfx:ServiceHotel[1]/@id">
+                                <xsl:attribute name="id">
+                                    <xsl:value-of select="$Call_ServicesHotel/pfx:ServicesHotels/pfx:ServiceHotel[1]/@id"/>
+                                </xsl:attribute>
+                            </xsl:if>
+                        </pfx5:BkServices>
+                    </pfx5:Booking>
+                </pfx5:Bookings>
+            </xsl:when>
+            <xsl:when test="$Get_ById_booking/resultSet/Record">
+                <pfx5:Bookings>
+                    <pfx5:Booking>
+                        <xsl:if test="$Get_ById_booking/resultSet/Record[1]/id_booking">
+                            <xsl:attribute name="id">
+                                <xsl:value-of select="$Get_ById_booking/resultSet/Record[1]/id_booking"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:for-each select="$Get_ById_booking/resultSet/Record">
+                            <xsl:variable name="index" select="position()"/>
+                            <xsl:variable name="item" select="$output/AccumulatedOutput/pfx:ServicesHotels[$index]"/>
+                            <pfx5:BkServices>
+                                <xsl:if test="$item/pfx:ServiceHotel[1]/@id_hotel">
+                                    <xsl:attribute name="id_hotel">
+                                        <xsl:value-of select="$item/pfx:ServiceHotel[1]/@id_hotel"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="$item/pfx:ServiceHotel[1]/@id_service">
+                                    <xsl:attribute name="id_service">
+                                        <xsl:value-of select="$item/pfx:ServiceHotel[1]/@id_service"/>
+                                    </xsl:attribute>
+                                </xsl:if>
+                                <xsl:attribute name="cost">
+                                    <xsl:value-of select="cost"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="id">
+                                    <xsl:value-of select="id"/>
+                                </xsl:attribute>
+                            </pfx5:BkServices>
+                        </xsl:for-each>
+                    </pfx5:Booking>
+                </pfx5:Bookings>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx5:Bookings>
+                    <pfx5:Booking>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="date">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="status">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="check_in_date">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="check_out_date">
+                            <xsl:value-of select="&quot;&quot;"/>
+                        </xsl:attribute>
+                    </pfx5:Booking>
+                </pfx5:Bookings>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx5:Bookings"/>
+    <pd:endX>1334</pd:endX>
+    <pd:endY>255</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1568907510179</pd:targetNamespace>
+    <pd:activity name="Get_ById">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>422</pd:x>
+        <pd:y>59</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>Select * from bookings_services Where id=?</statement>
+            <jdbcSharedConfig>/Maiden_Hotels_Project/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>id</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>id</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_booking</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_services_hotel</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>cost</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <id>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx5:BookingsServices/pfx5:BookingsService[1]/@id)">
+                            <xsl:value-of select="$Start/pfx5:BookingsServices/pfx5:BookingsService[1]/@id"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </id>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get_ById_booking">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>416</pd:x>
+        <pd:y>391</pd:y>
+        <config>
+            <timeout>10</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <statement>Select * from bookings_services Where id_booking=?</statement>
+            <jdbcSharedConfig>/Maiden_Hotels_Project/Connections/JDBC Connection.sharedjdbc</jdbcSharedConfig>
+            <Prepared_Param_DataType>
+                <parameter>
+                    <parameterName>id_booking</parameterName>
+                    <dataType>VARCHAR</dataType>
+                </parameter>
+            </Prepared_Param_DataType>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>id</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_booking</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>id_services_hotel</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>cost</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>4</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>INT</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput>
+                <id_booking>
+                    <xsl:choose>
+                        <xsl:when test="exists($Start/pfx5:BookingsServices/pfx5:BookingsService[1]/@id_booking)">
+                            <xsl:value-of select="$Start/pfx5:BookingsServices/pfx5:BookingsService[1]/@id_booking"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </id_booking>
+            </jdbcQueryActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Call_ServicesHotel">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>842</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <processName>/Maiden_Hotels_Project/CoreProcess/ServiceHotel/GetByParam_ServicesHotels.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx:ServicesHotels>
+                <pfx:ServiceHotel>
+                    <xsl:if test="$Get_ById/resultSet/Record[1]/id_services_hotel">
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="$Get_ById/resultSet/Record[1]/id_services_hotel"/>
+                        </xsl:attribute>
+                    </xsl:if>
+                </pfx:ServiceHotel>
+            </pfx:ServicesHotels>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>793</pd:x>
+        <pd:y>297</pd:y>
+        <pd:width>240</pd:width>
+        <pd:height>179</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Get_ById_booking/resultSet/Record</pd:over>
+            <pd:iterationElementSlot>id_service</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:outSlot>output</pd:outSlot>
+            <pd:activityOutputName>Call_ServicesHotel_2</pd:activityOutputName>
+            <pd:accumulateOutput>true</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Call_ServicesHotel_2</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Call_ServicesHotel_2</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Call_ServicesHotel_2">
+            <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+            <pd:resourceType>ae.process.subprocess</pd:resourceType>
+            <pd:x>908</pd:x>
+            <pd:y>382</pd:y>
+            <config>
+                <processName>/Maiden_Hotels_Project/CoreProcess/ServiceHotel/GetByParam_ServicesHotels.process</processName>
+            </config>
+            <pd:inputBindings>
+                <pfx:ServicesHotels>
+                    <pfx:ServiceHotel>
+                        <xsl:attribute name="id">
+                            <xsl:value-of select="$id_service/Record/id_services_hotel"/>
+                        </xsl:attribute>
+                    </pfx:ServiceHotel>
+                </pfx:ServicesHotels>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Error">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>592</pd:x>
+        <pd:y>204</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get_ById</pd:to>
+        <pd:xpathDescription>input id</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/pfx5:BookingsServices/pfx5:BookingsService[1]/@id)&gt;0 and string-length($Start/pfx5:BookingsServices/pfx5:BookingsService[1]/@id_booking)&lt;1</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get_ById_booking</pd:to>
+        <pd:xpathDescription>input id_booking</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/pfx5:BookingsServices/pfx5:BookingsService[1]/@id)&lt;1 and string-length($Start/pfx5:BookingsServices/pfx5:BookingsService[1]/@id_booking)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get_ById</pd:from>
+        <pd:to>Call_ServicesHotel</pd:to>
+        <pd:xpathDescription>record_exists</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($Get_ById/resultSet/Record/id)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get_ById_booking</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:xpathDescription>record exists</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($Get_ById_booking/resultSet/Record)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get_ById_booking</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get_ById</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call_ServicesHotel</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call_ServicesHotel</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

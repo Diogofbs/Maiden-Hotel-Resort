@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://xmlns.example.com/1568731803801" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns="http://www.tibco.com/schemas/TIBCO/Schemas/Schema.xsd" xmlns:ns1="http://www.tibco.com/schemas/TIBCO/Maiden_Hotels_Project/Schemas/Hotel.xsd">
+    <wsdl:import namespace="http://xmlns.example.com/1568731803801" location="/Maiden_Hotels_Project/ServicesCRUD_SOAP/Messages/Hotels.wsdl"/>
+    <pd:name>Maiden_Hotels_Project/ServicesCRUD_SOAP/Process/Hotels/Delete_Hotel.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx:in_Delete"/>
+    <pd:startX>127</pd:startX>
+    <pd:startY>91</pd:startY>
+    <pd:returnBindings>
+        <pfx:out_Delete>
+            <Status>
+                <xsl:copy-of select="$Call_Delete/ns1:StatusHotel"/>
+            </Status>
+        </pfx:out_Delete>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx:out_Delete"/>
+    <pd:endX>756</pd:endX>
+    <pd:endY>110</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1568813286831</pd:targetNamespace>
+    <pd:activity name="Call_Delete">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>371</pd:x>
+        <pd:y>105</pd:y>
+        <config>
+            <processName>/Maiden_Hotels_Project/CoreProcess/Hotels/Delete_Hotels.process</processName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/pfx:in_Delete/Hotels/ns1:Hotels"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Call_Delete</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Call_Delete</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>
