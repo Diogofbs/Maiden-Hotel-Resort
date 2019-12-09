@@ -4,8 +4,7 @@ public class Scheme_SOAP_Services_Locations {
 
     //--HOST--
     public static final String HOST = "http://localhost:";
-    // public static final String HOST = "http://192.168.0.77:";
-    //public static final String HOST = "http://192.168.0.182:";
+    // public static final String HOST = "http://IP:";
     //--END: HOSTS--
 
     //--PORTS--
